@@ -3,18 +3,30 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CF1FF58D256183C000731627 /* UserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1FF58C256183C000731627 /* UserView.swift */; };
+		CF1FF58E256183C000731627 /* UserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1FF58C256183C000731627 /* UserView.swift */; };
+		CF1FF58F256183C000731627 /* UserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF1FF58C256183C000731627 /* UserView.swift */; };
 		CF7A9D5C2560A10900EAD397 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF7A9D5B2560A10900EAD397 /* AppDelegate.swift */; };
-		CF7A9D5E2560A10900EAD397 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF7A9D5D2560A10900EAD397 /* SceneDelegate.swift */; };
 		CF7A9D602560A10900EAD397 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF7A9D5F2560A10900EAD397 /* ContentView.swift */; };
 		CF7A9D622560A10B00EAD397 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CF7A9D612560A10B00EAD397 /* Assets.xcassets */; };
 		CF7A9D652560A10B00EAD397 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CF7A9D642560A10B00EAD397 /* Preview Assets.xcassets */; };
 		CF7A9D682560A10B00EAD397 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CF7A9D662560A10B00EAD397 /* LaunchScreen.storyboard */; };
 		CF7A9D732560A10B00EAD397 /* swifty_companionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF7A9D722560A10B00EAD397 /* swifty_companionTests.swift */; };
 		CF7A9D7E2560A10B00EAD397 /* swifty_companionUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF7A9D7D2560A10B00EAD397 /* swifty_companionUITests.swift */; };
+		CFC17C5225619F87000B6A0F /* UtilsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC17C5125619F87000B6A0F /* UtilsAPI.swift */; };
+		CFC17C5325619F87000B6A0F /* UtilsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC17C5125619F87000B6A0F /* UtilsAPI.swift */; };
+		CFC17C5425619F87000B6A0F /* UtilsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC17C5125619F87000B6A0F /* UtilsAPI.swift */; };
+		CFC17C562561A262000B6A0F /* FtService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC17C552561A262000B6A0F /* FtService.swift */; };
+		CFC17C572561A262000B6A0F /* FtService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC17C552561A262000B6A0F /* FtService.swift */; };
+		CFC17C582561A262000B6A0F /* FtService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC17C552561A262000B6A0F /* FtService.swift */; };
+		CFC17C5B2561A963000B6A0F /* OAuthSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CFC17C5A2561A963000B6A0F /* OAuthSwift */; };
+		CFC17C5D2561AB6A000B6A0F /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC17C5C2561AB6A000B6A0F /* UserData.swift */; };
+		CFC17C5E2561AB6A000B6A0F /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC17C5C2561AB6A000B6A0F /* UserData.swift */; };
+		CFC17C5F2561AB6A000B6A0F /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC17C5C2561AB6A000B6A0F /* UserData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,9 +47,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CF1FF58C256183C000731627 /* UserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserView.swift; sourceTree = "<group>"; };
 		CF7A9D582560A10900EAD397 /* swifty_companion.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = swifty_companion.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF7A9D5B2560A10900EAD397 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		CF7A9D5D2560A10900EAD397 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		CF7A9D5F2560A10900EAD397 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		CF7A9D612560A10B00EAD397 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CF7A9D642560A10B00EAD397 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -49,6 +61,9 @@
 		CF7A9D792560A10B00EAD397 /* swifty_companionUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = swifty_companionUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF7A9D7D2560A10B00EAD397 /* swifty_companionUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = swifty_companionUITests.swift; sourceTree = "<group>"; };
 		CF7A9D7F2560A10B00EAD397 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CFC17C5125619F87000B6A0F /* UtilsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilsAPI.swift; sourceTree = "<group>"; };
+		CFC17C552561A262000B6A0F /* FtService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FtService.swift; sourceTree = "<group>"; };
+		CFC17C5C2561AB6A000B6A0F /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +71,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CFC17C5B2561A963000B6A0F /* OAuthSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -99,13 +115,16 @@
 		CF7A9D5A2560A10900EAD397 /* swifty_companion */ = {
 			isa = PBXGroup;
 			children = (
+				CFC17C5125619F87000B6A0F /* UtilsAPI.swift */,
+				CFC17C552561A262000B6A0F /* FtService.swift */,
 				CF7A9D5B2560A10900EAD397 /* AppDelegate.swift */,
-				CF7A9D5D2560A10900EAD397 /* SceneDelegate.swift */,
 				CF7A9D5F2560A10900EAD397 /* ContentView.swift */,
+				CF1FF58C256183C000731627 /* UserView.swift */,
 				CF7A9D612560A10B00EAD397 /* Assets.xcassets */,
 				CF7A9D662560A10B00EAD397 /* LaunchScreen.storyboard */,
 				CF7A9D692560A10B00EAD397 /* Info.plist */,
 				CF7A9D632560A10B00EAD397 /* Preview Content */,
+				CFC17C5C2561AB6A000B6A0F /* UserData.swift */,
 			);
 			path = swifty_companion;
 			sourceTree = "<group>";
@@ -152,6 +171,9 @@
 			dependencies = (
 			);
 			name = swifty_companion;
+			packageProductDependencies = (
+				CFC17C5A2561A963000B6A0F /* OAuthSwift */,
+			);
 			productName = swifty_companion;
 			productReference = CF7A9D582560A10900EAD397 /* swifty_companion.app */;
 			productType = "com.apple.product-type.application";
@@ -224,6 +246,9 @@
 				Base,
 			);
 			mainGroup = CF7A9D4F2560A10900EAD397;
+			packageReferences = (
+				CFC17C592561A963000B6A0F /* XCRemoteSwiftPackageReference "OAuthSwift" */,
+			);
 			productRefGroup = CF7A9D592560A10900EAD397 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -267,9 +292,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CFC17C5D2561AB6A000B6A0F /* UserData.swift in Sources */,
 				CF7A9D5C2560A10900EAD397 /* AppDelegate.swift in Sources */,
-				CF7A9D5E2560A10900EAD397 /* SceneDelegate.swift in Sources */,
 				CF7A9D602560A10900EAD397 /* ContentView.swift in Sources */,
+				CF1FF58D256183C000731627 /* UserView.swift in Sources */,
+				CFC17C5225619F87000B6A0F /* UtilsAPI.swift in Sources */,
+				CFC17C562561A262000B6A0F /* FtService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -277,7 +305,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CFC17C5325619F87000B6A0F /* UtilsAPI.swift in Sources */,
+				CFC17C572561A262000B6A0F /* FtService.swift in Sources */,
 				CF7A9D732560A10B00EAD397 /* swifty_companionTests.swift in Sources */,
+				CFC17C5E2561AB6A000B6A0F /* UserData.swift in Sources */,
+				CF1FF58E256183C000731627 /* UserView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -285,7 +317,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CFC17C5425619F87000B6A0F /* UtilsAPI.swift in Sources */,
+				CFC17C582561A262000B6A0F /* FtService.swift in Sources */,
 				CF7A9D7E2560A10B00EAD397 /* swifty_companionUITests.swift in Sources */,
+				CFC17C5F2561AB6A000B6A0F /* UserData.swift in Sources */,
+				CF1FF58F256183C000731627 /* UserView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -594,6 +630,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		CFC17C592561A963000B6A0F /* XCRemoteSwiftPackageReference "OAuthSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/OAuthSwift/OAuthSwift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.1.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		CFC17C5A2561A963000B6A0F /* OAuthSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CFC17C592561A963000B6A0F /* XCRemoteSwiftPackageReference "OAuthSwift" */;
+			productName = OAuthSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = CF7A9D502560A10900EAD397 /* Project object */;
 }

@@ -7,12 +7,35 @@
 //
 
 import UIKit
+import OAuthSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
-
+    let handle = OAuth2Swift(
+        consumerKey:    "********",
+        consumerSecret: "********",
+        authorizeUrl:   "https://api.instagram.com/oauth/authorize",
+        responseType:   "token"
+    ).authorize(
+        withCallbackURL: "oauth-swift://oauth-callback/instagram",
+        scope: "likes+comments", state:"INSTAGRAM") { result in
+        switch result {
+        case .success(let (credential, response, parameters)):
+          print(credential.oauthToken)
+          // Do your request
+        case .failure(let error):
+          print(error.localizedDescription)
+        }
+    }
+  
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey  : Any] = [:]) -> Bool {
+      if url.host == "oauth-callback" {
+        OAuthSwift.handle(url: url)
+      }
+      return true
+    }
+  
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         return true
