@@ -10,7 +10,7 @@ import SwiftUI
 
 struct UserView: View {
   @Binding var login: String
-  let str = UtilsAPI.searchUser(login)
+//  let str = UtilsAPI.searchUser(login)
     var body: some View {
       // todo: let url = https://api.intra.42.fr/v2/users?search[login]=\(login)&sort=login&page[size]=100
         Text("Hello world \(login)")
