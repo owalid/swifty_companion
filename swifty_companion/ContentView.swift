@@ -7,20 +7,35 @@
 //
 
 import SwiftUI
+import BetterSafariView
 
 struct ContentView: View {
   @State private var login: String = ""
-  
+  @State private var startingWebAuthenticationSession = false
+  var urlAuthorize = "\(FT_URL_API)?client_id=\(FT_CONSUMER_KEY)&client_secret=\(FT_CONSUMER_SECRET)&redirect_uri=\(FT_URL_SCHEME)&response_type=code"
+
   var body: some View {
     
     VStack(alignment: .center) {
-     
+      if !self.startingWebAuthenticationSession {
+        Button("Start WebAuthenticationSession") {
+          self.startingWebAuthenticationSession = true
+          }
+          .webAuthenticationSession(isPresented: $startingWebAuthenticationSession) {
+            WebAuthenticationSession(
+            url: URL(string: urlAuthorize)!,
+            callbackURLScheme: FT_URL_SCHEME.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
+          ) { callbackURL, error in
+              print(callbackURL, error)
+            }
+        }
+      }
       NavigationView {
           VStack {
             TextField("Login", text: $login)
                    .textFieldStyle(RoundedBorderTextFieldStyle())
             NavigationLink(destination: UserView(login: self.$login)) {
-                  Text("Show Detail View")
+                  Text("Recchercher")
                   .foregroundColor(.purple)
                   .font(.body)
                   .padding(5)
