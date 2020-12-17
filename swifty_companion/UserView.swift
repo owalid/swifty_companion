@@ -10,11 +10,22 @@ import SwiftUI
 
 struct UserView: View {
   @Binding var login: String
-//  let str = UtilsAPI.searchUser(login)
-    var body: some View {
-      // todo: let url = https://api.intra.42.fr/v2/users?search[login]=\(login)&sort=login&page[size]=100
-        Text("Hello world \(login)")
+  @State private var usersSearch: [Api.User]?
+  let api = Api.instance
+  
+  var body: some View {
+    List {
+      if (usersSearch != nil) {
+        ForEach(usersSearch!, id: \.login) { user in
+            Text(user.login)
+        }
+      }
+    }.onAppear {
+      self.api.searchUser(login: login) {response, error in
+        self.usersSearch = response
+      }
     }
+  }
 }
 
 //struct UserView_Previews: PreviewProvider {

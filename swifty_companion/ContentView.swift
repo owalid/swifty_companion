@@ -13,7 +13,7 @@ struct ContentView: View {
   @State private var login: String = ""
   @State private var startingWebAuthenticationSession = false
   var urlAuthorize = "\(FT_URL_API)?client_id=\(FT_CONSUMER_KEY)&client_secret=\(FT_CONSUMER_SECRET)&redirect_uri=\(FT_URL_SCHEME)&response_type=code"
-  let api = Api()
+  let api = Api.instance
 
   var body: some View {
     
@@ -36,15 +36,15 @@ struct ContentView: View {
       NavigationView {
           VStack {
             TextField("Login", text: $login)
-                   .textFieldStyle(RoundedBorderTextFieldStyle())
+              .textFieldStyle(RoundedBorderTextFieldStyle())
             NavigationLink(destination: UserView(login: self.$login)) {
-                  Text("Rechercher")
-                  .foregroundColor(.purple)
-                  .font(.body)
-                  .padding(5)
-                  .border(Color.purple, width: 2)
-              }.navigationBarTitle("Recherche")
-          }
+              Text("Rechercher")
+                .foregroundColor(.purple)
+                .font(.body)
+                .padding(5)
+                .border(Color.purple, width: 2)
+          }.navigationBarTitle("Recherche")
+        }
       }
 //      NavigationLink(destination: UserView()) {
 //        Text("Awesome Button")
