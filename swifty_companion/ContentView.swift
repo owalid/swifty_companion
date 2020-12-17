@@ -13,6 +13,7 @@ struct ContentView: View {
   @State private var login: String = ""
   @State private var startingWebAuthenticationSession = false
   var urlAuthorize = "\(FT_URL_API)?client_id=\(FT_CONSUMER_KEY)&client_secret=\(FT_CONSUMER_SECRET)&redirect_uri=\(FT_URL_SCHEME)&response_type=code"
+  let api = Api()
 
   var body: some View {
     
@@ -26,7 +27,9 @@ struct ContentView: View {
             url: URL(string: urlAuthorize)!,
             callbackURLScheme: FT_URL_SCHEME.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
           ) { callbackURL, error in
-              print(callbackURL, error)
+              let code = (callbackURL!).valueOf("code")
+              api.requestToken(code: code!)
+              print(code, error)
             }
         }
       }
@@ -35,7 +38,7 @@ struct ContentView: View {
             TextField("Login", text: $login)
                    .textFieldStyle(RoundedBorderTextFieldStyle())
             NavigationLink(destination: UserView(login: self.$login)) {
-                  Text("Recchercher")
+                  Text("Rechercher")
                   .foregroundColor(.purple)
                   .font(.body)
                   .padding(5)
