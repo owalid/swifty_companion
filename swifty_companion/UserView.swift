@@ -7,10 +7,11 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct UserView: View {
   @Binding var login: String
-  @State private var usersSearch: [Api.User]?
+  @State private var usersSearch: [User]?
   let api = Api.instance
   
   var body: some View {
@@ -18,6 +19,12 @@ struct UserView: View {
       if (usersSearch != nil) {
         ForEach(usersSearch!, id: \.login) { user in
           NavigationLink(destination: UserDetail(id: user.id)) {
+            WebImage(url: URL(string: "\(FT_BASE_URL_PIC)/small_\(user.login).jpg"))
+            .resizable()
+            .placeholder {Rectangle().foregroundColor(.gray)}
+            .indicator(.activity)
+            .scaledToFit()
+            .frame(width: 50, height: 50)
             Text("\(user.login) - \(user.id)")
           }.navigationBarTitle(user.login)
         }

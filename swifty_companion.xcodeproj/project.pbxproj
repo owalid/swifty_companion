@@ -22,6 +22,8 @@
 		CF8BCD80258BE34F00655161 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8BCD7F258BE34F00655161 /* SceneDelegate.swift */; };
 		CF8BCD8E258BE6AA00655161 /* UrlExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8BCD8D258BE6AA00655161 /* UrlExtension.swift */; };
 		CF8BCD93258BEC3900655161 /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8BCD92258BEC3900655161 /* Api.swift */; };
+		CF9955D5258CD70100514162 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = CF9955D4258CD70100514162 /* SDWebImageSwiftUI */; };
+		CF9955DA258CDE1200514162 /* UserStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF9955D9258CDE1200514162 /* UserStructs.swift */; };
 		CFC17C5225619F87000B6A0F /* UtilsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC17C5125619F87000B6A0F /* UtilsAPI.swift */; };
 		CFC17C5325619F87000B6A0F /* UtilsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC17C5125619F87000B6A0F /* UtilsAPI.swift */; };
 		CFC17C5425619F87000B6A0F /* UtilsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC17C5125619F87000B6A0F /* UtilsAPI.swift */; };
@@ -69,6 +71,7 @@
 		CF8BCD7F258BE34F00655161 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		CF8BCD8D258BE6AA00655161 /* UrlExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlExtension.swift; sourceTree = "<group>"; };
 		CF8BCD92258BEC3900655161 /* Api.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
+		CF9955D9258CDE1200514162 /* UserStructs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStructs.swift; sourceTree = "<group>"; };
 		CFC17C5125619F87000B6A0F /* UtilsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilsAPI.swift; sourceTree = "<group>"; };
 		CFC17C552561A262000B6A0F /* FtConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FtConfig.swift; sourceTree = "<group>"; };
 		CFC17C5C2561AB6A000B6A0F /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
@@ -79,6 +82,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CF9955D5258CD70100514162 /* SDWebImageSwiftUI in Frameworks */,
 				CF8B57F3258AC2BA00CE4727 /* BetterSafariView in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -137,6 +141,7 @@
 				CF8BCD8D258BE6AA00655161 /* UrlExtension.swift */,
 				CF8BCD92258BEC3900655161 /* Api.swift */,
 				CF35C95C258C21FF00264BD2 /* UserDetail.swift */,
+				CF9955D9258CDE1200514162 /* UserStructs.swift */,
 			);
 			path = swifty_companion;
 			sourceTree = "<group>";
@@ -185,6 +190,7 @@
 			name = swifty_companion;
 			packageProductDependencies = (
 				CF8B57F2258AC2BA00CE4727 /* BetterSafariView */,
+				CF9955D4258CD70100514162 /* SDWebImageSwiftUI */,
 			);
 			productName = swifty_companion;
 			productReference = CF7A9D582560A10900EAD397 /* swifty_companion.app */;
@@ -260,6 +266,7 @@
 			mainGroup = CF7A9D4F2560A10900EAD397;
 			packageReferences = (
 				CF8B57F1258AC2BA00CE4727 /* XCRemoteSwiftPackageReference "BetterSafariView" */,
+				CF9955D3258CD70100514162 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 			);
 			productRefGroup = CF7A9D592560A10900EAD397 /* Products */;
 			projectDirPath = "";
@@ -310,6 +317,7 @@
 				CF35C95D258C21FF00264BD2 /* UserDetail.swift in Sources */,
 				CF7A9D602560A10900EAD397 /* ContentView.swift in Sources */,
 				CF1FF58D256183C000731627 /* UserView.swift in Sources */,
+				CF9955DA258CDE1200514162 /* UserStructs.swift in Sources */,
 				CFC17C5225619F87000B6A0F /* UtilsAPI.swift in Sources */,
 				CF8BCD8E258BE6AA00655161 /* UrlExtension.swift in Sources */,
 				CFC17C562561A262000B6A0F /* FtConfig.swift in Sources */,
@@ -658,6 +666,14 @@
 				minimumVersion = 2.2.2;
 			};
 		};
+		CF9955D3258CD70100514162 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImageSwiftUI";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.5.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -665,6 +681,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = CF8B57F1258AC2BA00CE4727 /* XCRemoteSwiftPackageReference "BetterSafariView" */;
 			productName = BetterSafariView;
+		};
+		CF9955D4258CD70100514162 /* SDWebImageSwiftUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CF9955D3258CD70100514162 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
+			productName = SDWebImageSwiftUI;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
