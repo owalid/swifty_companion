@@ -9,11 +9,11 @@
 import SwiftUI
 
 struct UserDetail: View {
-  @Binding var id: String
+  var id: Int
 
-    var body: some View {
-        Text("YO \(id)")
-    }
+  var body: some View {
+    Text("YO \(id)")
+  }
 }
 
 //struct UserDetail_Previews: PreviewProvider {

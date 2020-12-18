@@ -17,9 +17,13 @@ struct UserView: View {
     List {
       if (usersSearch != nil) {
         ForEach(usersSearch!, id: \.login) { user in
-            Text(user.login)
+          NavigationLink(destination: UserDetail(id: user.id)) {
+            Text("\(user.login) - \(user.id)")
+          }
         }
-      }
+      } else {
+        // todo: loader
+       }
     }.onAppear {
       self.api.searchUser(login: login) {response, error in
         self.usersSearch = response
