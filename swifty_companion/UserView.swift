@@ -19,7 +19,7 @@ struct UserView: View {
         ForEach(usersSearch!, id: \.login) { user in
           NavigationLink(destination: UserDetail(id: user.id)) {
             Text("\(user.login) - \(user.id)")
-          }
+          }.navigationBarTitle(user.login)
         }
       } else {
         // todo: loader
