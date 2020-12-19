@@ -34,7 +34,8 @@ struct UserDetailStruct: Codable, Identifiable {
     let cursusUsers: [CursusUser]
     let projectsUsers: [ProjectUser]
     let languagesUsers: [LanguagesUser]
-    let achievements, titles, titlesUsers, partnerships: [JSONAny]
+    let achievements: [Achievement]
+    let titles, titlesUsers, partnerships: [JSONAny]
     let patroned: [Patroned]
     let patroning: [JSONAny]
     let expertisesUsers: [ExpertisesUser]
@@ -65,6 +66,24 @@ struct UserDetailStruct: Codable, Identifiable {
         case expertisesUsers = "expertises_users"
         case campus
         case campusUsers = "campus_users"
+    }
+}
+
+// MARK: - Achievement
+struct Achievement: Codable, Identifiable {
+    let id: Int
+    let name, achievementDescription, tier, kind: String
+    let visible: Bool
+    let image: String
+    let nbrOfSuccess: Int?
+    let usersURL: String
+
+    enum CodingKeys: String, CodingKey {
+        case id, name
+        case achievementDescription = "description"
+        case tier, kind, visible, image
+        case nbrOfSuccess = "nbr_of_success"
+        case usersURL = "users_url"
     }
 }
 

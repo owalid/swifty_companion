@@ -30,8 +30,7 @@ struct ContentView: View {
           }
       }
 //    } else {
-      
-
+  
     VStack(alignment: .center) {
       NavigationView {
           VStack {

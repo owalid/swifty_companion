@@ -7,14 +7,14 @@
 //
 
 import UIKit
+import SDWebImageSwiftUI
+import SDWebImageSVGCoder
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-  var window: UIWindow?
-//  var urlAuthorize = "\(FT_URL_API)?client_id=\(FT_CONSUMER_KEY)&client_secret=\(FT_CONSUMER_SECRET)&redirect_uri=\(FT_URL_SCHEME)&response_type=code"
   
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-//    UIApplication.shared.open(URL(string: urlAuthorize)!)
+    SDImageCodersManager.shared.addCoder(SDImageSVGCoder.shared)
     // Override point for customization after application launch.
       return true
   }

@@ -33,6 +33,7 @@
 		CFC17C5D2561AB6A000B6A0F /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC17C5C2561AB6A000B6A0F /* UserData.swift */; };
 		CFC17C5E2561AB6A000B6A0F /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC17C5C2561AB6A000B6A0F /* UserData.swift */; };
 		CFC17C5F2561AB6A000B6A0F /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC17C5C2561AB6A000B6A0F /* UserData.swift */; };
+		CFE06FE9258E30B500A589C2 /* SDWebImageSVGCoder in Frameworks */ = {isa = PBXBuildFile; productRef = CFE06FE8258E30B500A589C2 /* SDWebImageSVGCoder */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -82,6 +83,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CFE06FE9258E30B500A589C2 /* SDWebImageSVGCoder in Frameworks */,
 				CF9955D5258CD70100514162 /* SDWebImageSwiftUI in Frameworks */,
 				CF8B57F3258AC2BA00CE4727 /* BetterSafariView in Frameworks */,
 			);
@@ -191,6 +193,7 @@
 			packageProductDependencies = (
 				CF8B57F2258AC2BA00CE4727 /* BetterSafariView */,
 				CF9955D4258CD70100514162 /* SDWebImageSwiftUI */,
+				CFE06FE8258E30B500A589C2 /* SDWebImageSVGCoder */,
 			);
 			productName = swifty_companion;
 			productReference = CF7A9D582560A10900EAD397 /* swifty_companion.app */;
@@ -267,6 +270,7 @@
 			packageReferences = (
 				CF8B57F1258AC2BA00CE4727 /* XCRemoteSwiftPackageReference "BetterSafariView" */,
 				CF9955D3258CD70100514162 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
+				CFE06FE7258E30B500A589C2 /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */,
 			);
 			productRefGroup = CF7A9D592560A10900EAD397 /* Products */;
 			projectDirPath = "";
@@ -674,6 +678,14 @@
 				minimumVersion = 1.5.0;
 			};
 		};
+		CFE06FE7258E30B500A589C2 /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImageSVGCoder";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.6.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -686,6 +698,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = CF9955D3258CD70100514162 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */;
 			productName = SDWebImageSwiftUI;
+		};
+		CFE06FE8258E30B500A589C2 /* SDWebImageSVGCoder */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CFE06FE7258E30B500A589C2 /* XCRemoteSwiftPackageReference "SDWebImageSVGCoder" */;
+			productName = SDWebImageSVGCoder;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
