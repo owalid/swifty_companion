@@ -13,6 +13,7 @@ import SDWebImageSwiftUI
 final class ChartDataModel: ObservableObject {
     var chartCellModel: [Skill]
     var startingAngle = Angle(degrees: 0)
+  
     private var lastBarEndAngle = Angle(degrees: 0)
     
         
@@ -30,27 +31,27 @@ final class ChartDataModel: ObservableObject {
         if startingAngle != lastBarEndAngle {
             startingAngle = lastBarEndAngle
         }
-        lastBarEndAngle += Angle(degrees: Double(value / totalValue) * 360 )
-        print(lastBarEndAngle.degrees)
+        lastBarEndAngle += Angle(degrees: Double(value / totalValue) * 360)
         return lastBarEndAngle
     }
 }
 
 struct PieChartCell: Shape {
-    let startAngle: Angle
-    let endAngle: Angle
-   func path(in rect: CGRect) -> Path {
-        let center = CGPoint.init(x: (rect.origin.x + rect.width)/2, y: (rect.origin.y + rect.height)/2)
+  let startAngle: Angle
+  let endAngle: Angle
+  
+  func path(in rect: CGRect) -> Path {
+    let center = CGPoint.init(x: (rect.origin.x + rect.width)/2, y: (rect.origin.y + rect.height)/2)
     let radii = min(center.x, center.y)
-        let path = Path { p in
-            p.addArc(center: center,
-                     radius: radii,
-                     startAngle: startAngle,
-                     endAngle: endAngle,
-                     clockwise: true)
-            p.addLine(to: center)
-        }
-        return path
+    let path = Path { p in
+      p.addArc(center: center,
+               radius: radii,
+               startAngle: startAngle,
+               endAngle: endAngle,
+               clockwise: true)
+      p.addLine(to: center)
+    }
+    return path
    }
 }
 
@@ -64,21 +65,21 @@ struct PieChart: View {
           ForEach(dataModel.chartCellModel) { dataSet in
               PieChartCell(startAngle: self.dataModel.angle(for: CGFloat(dataSet.level)), endAngle: self.dataModel.startingAngle)
                 .foregroundColor(Color(
-                  red: Double(dataSet.id) / 100 + 0.02 * dataSet.level,
-                  green: Double(dataSet.id) / 100 + 0.04 * dataSet.level,
-                  blue: Double(dataSet.id) / 100 + 0.09 * dataSet.level
+                  red: Double(dataSet.id) / 100 + 0.04 * dataSet.level,
+                  green: Double(dataSet.id) / 100 + 0.08 * dataSet.level,
+                  blue: Double(dataSet.id) / 100 + 0.15 * dataSet.level
               ))
                  .onTapGesture {
                    withAnimation {
                       if self.selectedCell == dataSet.id {
-                          self.onTap(nil)
-                          self.selectedCell = -1
+                        self.onTap(nil)
+                        self.selectedCell = -1
                       } else {
                           self.selectedCell = dataSet.id
                           self.onTap(dataSet)
                       }
                   }
-              }.scaleEffect((self.selectedCell == dataSet.id) ? 1.05 : 1.0)
+              }.scaleEffect((self.selectedCell == dataSet.id) ? 1.15 : 1.0)
           }
         }
   }
@@ -135,7 +136,7 @@ struct UserDetail: View {
     if (usersDetail != nil) {
       VStack() {
         HStack(alignment: .top) {
-          Text("\(usersDetail!.campus[0].name)") // paris
+          Text("\(usersDetail!.campus[0].name)") // campus name
             WebImage(url: URL(string: "\(FT_BASE_URL_PIC)/large_\(usersDetail!.login).jpg"))
               .resizable()
               .placeholder {Rectangle().foregroundColor(.gray)}
@@ -179,7 +180,7 @@ struct UserDetail: View {
           Button(action: {
             self.selectedTab = 1
           }) {
-            Text("Achievement")
+            Text("Achievements")
           }.buttonStyle(buttonTabStyle(condition: self.selectedTab == 1))
           Button(action: {
             self.selectedTab = 2
@@ -220,7 +221,7 @@ struct UserDetail: View {
                PieChart(dataModel: ChartDataModel.init(dataModel: usersDetail!.cursusUsers[self.selectedCursus].skills), onTap: {
                    dataModel in
                    if let dataModel = dataModel {
-                       self.selectedPie = "Subject: \(dataModel.name)\nPointes: \(dataModel.level)"
+                       self.selectedPie = "\(dataModel.name): \(dataModel.level)"
                    } else {
                        self.selectedPie = ""
                    }

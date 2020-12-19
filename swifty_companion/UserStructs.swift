@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import SwiftUI
 
 // MARK: - User
 struct User: Codable, Identifiable {
@@ -196,7 +195,6 @@ struct Skill: Codable, Identifiable {
   let id: Int
   let name: String
   let level: Double
-  let color: String = "\(Color.random)"
 }
 
 

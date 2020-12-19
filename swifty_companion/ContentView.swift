@@ -16,8 +16,8 @@ struct ContentView: View {
   let api = Api.instance
 
   var body: some View {
-//    if (Api.instance.accessToken == nil || Api.instance.createdAt == nil || Api.instance.expiresIn == nil) {
-      Button("Connection OAuth42") {
+    if api.accessToken == nil || api.createdAt == nil || api.expiresIn == nil {
+      Button("Connection OAuth42: [\(api.accessToken!)]::[\(api.expiresIn!)]::[\(api.createdAt!)]") {
         self.startingWebAuthenticationSession = true
         }
         .webAuthenticationSession(isPresented: $startingWebAuthenticationSession) {
@@ -29,7 +29,7 @@ struct ContentView: View {
             api.requestToken(code: code!)
           }
       }
-//    } else {
+    } else {
   
 //    VStack(alignment: .center) {
       NavigationView {
@@ -46,7 +46,7 @@ struct ContentView: View {
         }
       }
 //    }.padding()
-//    }
+    }
   }
 }
 

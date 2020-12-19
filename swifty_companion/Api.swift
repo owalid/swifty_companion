@@ -14,10 +14,29 @@ class Api {
   var accessToken: String?
   var createdAt: Int?
   var expiresIn: Int?
+  let store = UserDefaults.standard
   
-  private init(){}
+  private init() {
+    if let accessToken = self.store.string(forKey: "accessToken") {
+        print("aaaa: \(accessToken)")
+      self.accessToken = accessToken
+    }
+    let createdAt = self.store.integer(forKey: "createdAt")
+    if createdAt > 0 {
+        print("bbbb: \(createdAt)")
+      self.createdAt = createdAt
+    }
+    let expiresIn = self.store.integer(forKey: "expiresIn")
+    if expiresIn > 0 {
+        print("cccc: \(expiresIn)")
+      self.expiresIn = expiresIn
+    }
+  }
   
   func requestToken(code: String) {
+    if (self.accessToken != nil) {
+      print("fesse")
+    }
     let params = "grant_type=client_credentials&client_id=\(FT_CONSUMER_KEY)&client_secret=\(FT_CONSUMER_SECRET)&code=\(code)"
     let url = URL(string: FT_URL_API_TOKEN)!
     
@@ -28,11 +47,11 @@ class Api {
     let task = URLSession.shared.dataTask(with: request) { data, response, error in
       guard let data = data,
          let response = response as? HTTPURLResponse,
-         error == nil else {                                              // check for fundamental networking error
+         error == nil else { // check for fundamental networking error
          print("error", error ?? "Unknown error")
          return
        }
-       guard (200 ... 299) ~= response.statusCode else {                    // check for http errors
+       guard (200 ... 299) ~= response.statusCode else { // check for http errors
          print("statusCode should be 2xx, but is \(response.statusCode)")
          print("response = \(response)")
          return
@@ -40,15 +59,21 @@ class Api {
       let jsonElmts = try? JSONSerialization.jsonObject(with: data, options: [])
       if let dictionary = jsonElmts as? [String: Any] {
         if let access_token = dictionary["access_token"] as? String {
-          Api.instance.accessToken = access_token
+          self.accessToken = access_token
+          self.store.set(self.accessToken!, forKey: "accessToken")
         }
         if let created_at = dictionary["created_at"] as? Int {
-          Api.instance.createdAt = created_at
+          self.createdAt = created_at
+          self.store.set(self.createdAt!, forKey: "createdAt")
         }
         if let expires_in = dictionary["expires_in"] as? Int {
-          Api.instance.expiresIn = expires_in
+          self.expiresIn = expires_in
+          self.store.set(self.expiresIn!, forKey: "expiresIn")
         }
       }
+//      if let access_token = self.store.string(forKey: "accessToken") {
+//          print(access_token)
+//      }
     }
    
     task.resume()
@@ -59,7 +84,7 @@ class Api {
     var request = URLRequest(url: url)
     
     request.httpMethod = "GET"
-    request.setValue("Bearer \(Api.instance.accessToken!)", forHTTPHeaderField: "Authorization")
+    request.setValue("Bearer \(self.accessToken!)", forHTTPHeaderField: "Authorization")
     
     let task = URLSession.shared.dataTask(with: request) { data, response, error in
       guard let data = data,
@@ -90,7 +115,7 @@ class Api {
     var request = URLRequest(url: url)
     
     request.httpMethod = "GET"
-    request.setValue("Bearer \(Api.instance.accessToken!)", forHTTPHeaderField: "Authorization")
+    request.setValue("Bearer \(self.accessToken!)", forHTTPHeaderField: "Authorization")
     
     let task = URLSession.shared.dataTask(with: request) { data, response, error in
       guard let data = data,
