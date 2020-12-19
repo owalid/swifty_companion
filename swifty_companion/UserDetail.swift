@@ -15,6 +15,27 @@ struct TabItem: Identifiable {
     var tag: Int
 }
 
+struct ProgressBar: View {
+  var value: Double
+
+    var body: some View {
+      
+        GeometryReader { geometry in
+            ZStack(alignment: .leading) {
+                Rectangle().frame(width: geometry.size.width , height: geometry.size.height)
+                    .opacity(0.3)
+                    .foregroundColor(Color(UIColor.systemTeal))
+              Rectangle().frame(width: min(CGFloat(Float("0.\(String(self.value).components(separatedBy: ".")[1])")!)*geometry.size.width, geometry.size.width), height: geometry.size.height)
+                    .foregroundColor(Color(UIColor.systemBlue))
+                    .animation(.linear)
+              HStack(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/, spacing: /*@START_MENU_TOKEN@*/nil/*@END_MENU_TOKEN@*/, content: {
+                Text("\(self.value.rounded(toPlaces: 2))")
+              })
+            }.cornerRadius(45.0)
+        }
+    }
+}
+
 struct UserDetail: View {
   let tabData = [
     TabItem(title: Text("Projets"), tag: 1),
@@ -59,7 +80,8 @@ struct UserDetail: View {
           Text("Wallet \(usersDetail!.wallet)₳") // wallet
           Text("Point d'evaluation \(usersDetail!.correctionPoint)") // evaluation point
         }.padding()
-        Text("\(usersDetail!.cursusUsers[self.selectedCursus].level)") // level
+        ProgressBar(value: usersDetail!.cursusUsers[self.selectedCursus].level).frame(height: 20)
+//        Text("\(usersDetail!.cursusUsers[self.selectedCursus].level)") // level
         
         // Tab: Projects / achievement / charts
 //        TabView(selection: $selectedTab) {

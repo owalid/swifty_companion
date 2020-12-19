@@ -14,3 +14,10 @@ extension URL {
         return url.queryItems?.first(where: { $0.name == queryParamaterName })?.value
     }
 }
+
+extension Double {
+    func rounded(toPlaces places:Int) -> Double {
+        let divisor = pow(10.0, Double(places))
+        return (self * divisor).rounded() / divisor
+    }
+}
