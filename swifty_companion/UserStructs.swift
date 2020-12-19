@@ -16,7 +16,7 @@ struct User: Codable, Identifiable {
 }
 
 // MARK: - UserDetailStruct
-struct UserDetailStruct: Codable {
+struct UserDetailStruct: Codable, Identifiable {
     let id: Int
     let email, login, firstName, lastName: String
     let usualFirstName: String?
@@ -32,7 +32,7 @@ struct UserDetailStruct: Codable {
     let anonymizeDate: String
     let groups: [JSONAny]
     let cursusUsers: [CursusUser]
-    let projectsUsers: [JSONAny]
+    let projectsUsers: [ProjectUser]
     let languagesUsers: [LanguagesUser]
     let achievements, titles, titlesUsers, partnerships: [JSONAny]
     let patroned: [Patroned]
@@ -65,6 +65,45 @@ struct UserDetailStruct: Codable {
         case expertisesUsers = "expertises_users"
         case campus
         case campusUsers = "campus_users"
+    }
+}
+
+// MARK: - ProjectUser
+struct ProjectUser: Codable, Identifiable {
+    let id, occurrence: Int
+    let finalMark: Int?
+    let status: String
+    let validated: Bool?
+    let currentTeamID: Int?
+    let project: Project
+    let cursusIDS: [Int]
+    let markedAt: String?
+    let marked: Bool
+    let retriableAt: String?
+
+    enum CodingKeys: String, CodingKey {
+        case id, occurrence
+        case finalMark = "final_mark"
+        case status
+        case validated = "validated?"
+        case currentTeamID = "current_team_id"
+        case project
+        case cursusIDS = "cursus_ids"
+        case markedAt = "marked_at"
+        case marked
+        case retriableAt = "retriable_at"
+    }
+}
+
+// MARK: - Project
+struct Project: Codable {
+    let id: Int
+    let name, slug: String
+    let parentID: Int?
+
+    enum CodingKeys: String, CodingKey {
+        case id, name, slug
+        case parentID = "parent_id"
     }
 }
 

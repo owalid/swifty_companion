@@ -16,23 +16,23 @@ struct ContentView: View {
   let api = Api.instance
 
   var body: some View {
-    
-    VStack(alignment: .center) {
-      if !self.startingWebAuthenticationSession {
-        Button("Start WebAuthenticationSession") {
-          self.startingWebAuthenticationSession = true
-          }
-          .webAuthenticationSession(isPresented: $startingWebAuthenticationSession) {
-            WebAuthenticationSession(
-            url: URL(string: urlAuthorize)!,
-            callbackURLScheme: FT_URL_SCHEME.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
-          ) { callbackURL, error in
-              let code = (callbackURL!).valueOf("code")
-              api.requestToken(code: code!)
-              print(code, error)
-            }
+//    if (Api.instance.accessToken == nil || Api.instance.createdAt == nil || Api.instance.expiresIn == nil) {
+      Button("Connection OAuth42") {
+        self.startingWebAuthenticationSession = true
         }
+        .webAuthenticationSession(isPresented: $startingWebAuthenticationSession) {
+          WebAuthenticationSession(
+          url: URL(string: urlAuthorize)!,
+          callbackURLScheme: FT_URL_SCHEME.addingPercentEncoding(withAllowedCharacters: .urlHostAllowed)
+        ) { callbackURL, error in
+            let code = (callbackURL!).valueOf("code")
+            api.requestToken(code: code!)
+          }
       }
+//    } else {
+      
+
+    VStack(alignment: .center) {
       NavigationView {
           VStack {
             TextField("Login", text: $login)
@@ -46,39 +46,7 @@ struct ContentView: View {
           }.navigationBarTitle("Recherche")
         }
       }
-//      NavigationLink(destination: UserView()) {
-//        Text("Awesome Button")
-//                           .frame(minWidth: 0, maxWidth: 300)
-//                           .padding()
-//                           .foregroundColor(.white)
-//                           .background(LinearGradient(gradient: Gradient(colors: [Color.red, Color.blue]), startPoint: .leading, endPoint: .trailing))
-//                           .cornerRadius(40)
-//                           .font(.title)
-//      }
-//       Button(action: {
-//           self.name = "Hello text"
-//       }) {
-//         Text("Rechercher")
-//           .foregroundColor(.purple)
-//          .font(.body)
-//          .padding(5)
-//          .border(Color.purple, width: 2)
-//       }
     }.padding()
-    
-//    VStack {
-//       TextField("Enter your name", text: $name)
-//       Text("Hello, \(name)!")
-//     }
-  
-//    Button(action: {
-//      print("hello world")
-//    }) {
-//      Text("Rechercher")
-//        .foregroundColor(.purple)
-//        .font(.title)
-//        .padding(5)
-//        .border(Color.purple, width: 2)
 //    }
   }
 }

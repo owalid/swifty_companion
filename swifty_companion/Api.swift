@@ -40,16 +40,17 @@ class Api {
       let jsonElmts = try? JSONSerialization.jsonObject(with: data, options: [])
       if let dictionary = jsonElmts as? [String: Any] {
         if let access_token = dictionary["access_token"] as? String {
-          self.accessToken = access_token
+          Api.instance.accessToken = access_token
         }
         if let created_at = dictionary["created_at"] as? Int {
-            self.createdAt = created_at
+          Api.instance.createdAt = created_at
         }
         if let expires_in = dictionary["expires_in"] as? Int {
-          self.expiresIn = expires_in
+          Api.instance.expiresIn = expires_in
         }
       }
     }
+   
     task.resume()
   }
   
@@ -58,7 +59,7 @@ class Api {
     var request = URLRequest(url: url)
     
     request.httpMethod = "GET"
-    request.setValue("Bearer \(self.accessToken!)", forHTTPHeaderField: "Authorization")
+    request.setValue("Bearer \(Api.instance.accessToken!)", forHTTPHeaderField: "Authorization")
     
     let task = URLSession.shared.dataTask(with: request) { data, response, error in
       guard let data = data,
@@ -89,7 +90,7 @@ class Api {
     var request = URLRequest(url: url)
     
     request.httpMethod = "GET"
-    request.setValue("Bearer \(self.accessToken!)", forHTTPHeaderField: "Authorization")
+    request.setValue("Bearer \(Api.instance.accessToken!)", forHTTPHeaderField: "Authorization")
     
     let task = URLSession.shared.dataTask(with: request) { data, response, error in
       guard let data = data,
