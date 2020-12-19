@@ -9,10 +9,79 @@
 import SwiftUI
 import SDWebImageSwiftUI
 
-struct TabItem: Identifiable {
-    var id = UUID()
-    var title: Text
-    var tag: Int
+
+final class ChartDataModel: ObservableObject {
+    var chartCellModel: [Skill]
+    var startingAngle = Angle(degrees: 0)
+    private var lastBarEndAngle = Angle(degrees: 0)
+    
+        
+    init(dataModel: [Skill]) {
+        chartCellModel = dataModel
+    }
+    
+    var totalValue: CGFloat {
+        chartCellModel.reduce(CGFloat(0)) { (result, data) -> CGFloat in
+            result + CGFloat(data.level)
+        }
+    }
+    
+    func angle(for value: CGFloat) -> Angle {
+        if startingAngle != lastBarEndAngle {
+            startingAngle = lastBarEndAngle
+        }
+        lastBarEndAngle += Angle(degrees: Double(value / totalValue) * 360 )
+        print(lastBarEndAngle.degrees)
+        return lastBarEndAngle
+    }
+}
+
+struct PieChartCell: Shape {
+    let startAngle: Angle
+    let endAngle: Angle
+   func path(in rect: CGRect) -> Path {
+        let center = CGPoint.init(x: (rect.origin.x + rect.width)/2, y: (rect.origin.y + rect.height)/2)
+    let radii = min(center.x, center.y)
+        let path = Path { p in
+            p.addArc(center: center,
+                     radius: radii,
+                     startAngle: startAngle,
+                     endAngle: endAngle,
+                     clockwise: true)
+            p.addLine(to: center)
+        }
+        return path
+   }
+}
+
+struct PieChart: View {
+    @State private var selectedCell: Int = -1
+    
+    let dataModel: ChartDataModel
+    let onTap: (Skill?) -> ()
+    var body: some View {
+      ZStack {
+          ForEach(dataModel.chartCellModel) { dataSet in
+              PieChartCell(startAngle: self.dataModel.angle(for: CGFloat(dataSet.level)), endAngle: self.dataModel.startingAngle)
+                .foregroundColor(Color(
+                  red: Double(dataSet.id) / 100 + 0.02 * dataSet.level,
+                  green: Double(dataSet.id) / 100 + 0.04 * dataSet.level,
+                  blue: Double(dataSet.id) / 100 + 0.09 * dataSet.level
+              ))
+                 .onTapGesture {
+                   withAnimation {
+                      if self.selectedCell == dataSet.id {
+                          self.onTap(nil)
+                          self.selectedCell = -1
+                      } else {
+                          self.selectedCell = dataSet.id
+                          self.onTap(dataSet)
+                      }
+                  }
+              }.scaleEffect((self.selectedCell == dataSet.id) ? 1.05 : 1.0)
+          }
+        }
+  }
 }
 
 struct buttonTabStyle: ButtonStyle {
@@ -47,11 +116,7 @@ struct ProgressBar: View {
 }
 
 struct UserDetail: View {
-  let tabData = [
-    TabItem(title: Text("Projets"), tag: 1),
-    TabItem(title: Text("Achievments"), tag: 2),
-    TabItem(title: Text("Graphiques"), tag: 3),
-  ]
+  @State var selectedPie: String = ""
   @State var selectedTab = 0
   @State var expand = false
   @State private var usersDetail: UserDetailStruct?
@@ -149,6 +214,25 @@ struct UserDetail: View {
               }
             }.frame(height: CGFloat(usersDetail!.projectsUsers.count))
           }.layoutPriority(1)
+        } else {
+          VStack {
+           HStack(spacing: 20) {
+               PieChart(dataModel: ChartDataModel.init(dataModel: usersDetail!.cursusUsers[self.selectedCursus].skills), onTap: {
+                   dataModel in
+                   if let dataModel = dataModel {
+                       self.selectedPie = "Subject: \(dataModel.name)\nPointes: \(dataModel.level)"
+                   } else {
+                       self.selectedPie = ""
+                   }
+               })
+                   .frame(width: 150, height: 150, alignment: .center)
+                   .padding()
+               Text(selectedPie)
+               .font(.footnote)
+               .multilineTextAlignment(.leading)
+               Spacer()
+           }
+         }
         }
       }
     }

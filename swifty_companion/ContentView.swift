@@ -31,7 +31,7 @@ struct ContentView: View {
       }
 //    } else {
   
-    VStack(alignment: .center) {
+//    VStack(alignment: .center) {
       NavigationView {
           VStack {
             TextField("Login", text: $login)
@@ -42,10 +42,10 @@ struct ContentView: View {
                 .font(.body)
                 .padding(5)
                 .border(Color.purple, width: 2)
-          }.navigationBarTitle("Recherche")
+            }.navigationBarTitle("Recherche")
         }
       }
-    }.padding()
+//    }.padding()
 //    }
   }
 }

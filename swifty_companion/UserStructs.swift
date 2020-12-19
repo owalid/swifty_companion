@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 // MARK: - User
 struct User: Codable, Identifiable {
@@ -173,7 +174,7 @@ struct CursusUser: Codable {
     let beginAt: String
     let endAt, grade: String?
     let level: Double
-    let skills: [JSONAny]
+    let skills: [Skill]
     let cursusID: Int
     let hasCoalition: Bool
     let user: User
@@ -189,6 +190,15 @@ struct CursusUser: Codable {
         case user, cursus
     }
 }
+
+// MARK: - Skill
+struct Skill: Codable, Identifiable {
+  let id: Int
+  let name: String
+  let level: Double
+  let color: String = "\(Color.random)"
+}
+
 
 // MARK: - Cursus
 struct Cursus: Codable {
