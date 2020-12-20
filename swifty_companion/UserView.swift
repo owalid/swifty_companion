@@ -9,14 +9,21 @@
 import SwiftUI
 import SDWebImageSwiftUI
 
+
 struct UserView: View {
   @Binding var login: String
-  @State private var usersSearch: [User]?
+  @Binding var rootIsActive : Bool
+  
+  @State var usersSearch: [User]?
+  @State var isFinished = false
+  @State var page = 0
+  @State var redirectHomeView = false
+  
   let api = Api.instance
   
   var body: some View {
     List {
-      if (usersSearch != nil) {
+      if usersSearch != nil {
         ForEach(usersSearch!, id: \.login) { user in
           NavigationLink(destination: UserDetail(id: user.id)) {
             WebImage(url: URL(string: "\(FT_BASE_URL_PIC)/small_\(user.login).jpg"))
@@ -25,17 +32,38 @@ struct UserView: View {
             .indicator(.activity)
             .scaledToFit()
             .frame(width: 50, height: 50)
-            Text("\(user.login) - \(user.id)")
+            Text("\(user.login) - \(user.id)").onAppear {
+              if self.usersSearch!.last == user && !isFinished {
+                self.page += 1
+                self.api.searchUser(login: login, page: page) {response, error in
+                  if response?.count == 0 {
+                    print("wesh alors")
+                    self.isFinished = true
+                  }
+                  self.usersSearch! += response!
+                }
+              }
+          }
           }.navigationBarTitle(user.login)
         }
       } else {
         // todo: loader
        }
     }.onAppear {
-      self.api.searchUser(login: login) {response, error in
-        self.usersSearch = response
+      self.api.searchUser(login: login, page: page) {response, error in
+        if response == nil {
+          print("isActive \(rootIsActive) ??")
+          self.rootIsActive = false
+        } else {
+          self.usersSearch = response
+        }
       }
     }
+//    NavigationView {
+//    NavigationLink(destination: ContentView(), isActive: $redirectHomeView) {
+//      EmptyView()
+//     }.hidden()
+//    }
   }
 }
 
