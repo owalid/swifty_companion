@@ -43,7 +43,7 @@ struct UserView: View {
                 self.loading = true
                 self.page += 1
                 self.api.searchUser(login: login, page: page) {response, error in
-                  if response?.count == 0 {
+                  if response?.count == 0 || response == nil {
                     print("finished")
                     self.isFinished = true
                   }

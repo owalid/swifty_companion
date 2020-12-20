@@ -111,7 +111,7 @@ struct ProgressBar: View {
         
         HStack(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/, spacing: /*@START_MENU_TOKEN@*/nil/*@END_MENU_TOKEN@*/, content: {
           Spacer()
-          Text("\(self.value.rounded(toPlaces: 2))").fontWeight(.semibold)
+          Text("\(self.value, specifier: "%.2f")").fontWeight(.light)
           Spacer()
         })
       }.cornerRadius(45.0)
@@ -126,6 +126,7 @@ struct UserDetail: View {
     @State var selectedTab = 0
     @State var expand = false
     @State private var usersDetail: UserDetailStruct?
+    @State private var expertises: [Expertise]?
     @State private var selectedCursus = 0
   
     let api = Api.instance
@@ -138,7 +139,7 @@ struct UserDetail: View {
 
   var body: some View {
     ZStack {
-      if (usersDetail != nil) {
+      if (usersDetail != nil && expertises != nil) {
       VStack(spacing: 10) {
         VStack(spacing: 10) {
           HStack(alignment: .top) {
@@ -196,21 +197,31 @@ struct UserDetail: View {
          }.padding()
           ProgressBar(value: usersDetail!.cursusUsers[self.selectedCursus].level).frame(height: 20).padding()
           HStack() {
+            
             Button(action: {
               self.selectedTab = 0
             }) {
-              Text("Projets").font(.system(size: 14)).fontWeight(.light)
+              Text("Projets").font(.system(size: 13)).fontWeight(.light)
             }.buttonStyle(buttonTabStyle(condition: self.selectedTab == 0))
+            
             Button(action: {
               self.selectedTab = 1
             }) {
-              Text("Achievements").font(.system(size: 14)).fontWeight(.light)
+              Text("Achievements").font(.system(size: 13)).fontWeight(.light)
             }.buttonStyle(buttonTabStyle(condition: self.selectedTab == 1))
+            
             Button(action: {
               self.selectedTab = 2
             }) {
-              Text("Graphiques").font(.system(size: 14)).fontWeight(.light)
+              Text("Graphiques").font(.system(size: 13)).fontWeight(.light)
             }.buttonStyle(buttonTabStyle(condition: self.selectedTab == 2))
+            
+            Button(action: {
+              self.selectedTab = 3
+            }) {
+              Text("Expertise").font(.system(size: 13)).fontWeight(.light)
+            }.buttonStyle(buttonTabStyle(condition: self.selectedTab == 3))
+            
           }
           if (self.selectedTab == 0) {
             VStack(spacing: 0) {
@@ -254,13 +265,13 @@ struct UserDetail: View {
                 }
               }
             }.layoutPriority(1)
-          } else {
+          } else if self.selectedTab == 2 {
             VStack {
-             HStack(spacing: 20) {
+             HStack(spacing: 0) {
                  PieChart(dataModel: ChartDataModel.init(dataModel: usersDetail!.cursusUsers[self.selectedCursus].skills), onTap: {
                      dataModel in
                      if let dataModel = dataModel {
-                         self.selectedPie = "\(dataModel.name): \(dataModel.level)"
+                      self.selectedPie = "\(dataModel.name): \(dataModel.level.rounded(toPlaces: 2))"
                      } else {
                          self.selectedPie = ""
                      }
@@ -273,6 +284,24 @@ struct UserDetail: View {
                  Spacer()
              }
            }
+          } else {
+            VStack(spacing: 0) {
+              List {
+                ForEach(usersDetail!.expertisesUsers, id: \.id) { expertiseUser in
+                    let cpy = expertises
+                    let expertisesFiltered = cpy!.filter{ $0.id == expertiseUser.expertiseID}
+                    if  expertisesFiltered.count > 0 && expertisesFiltered.count != 0 {
+                      HStack {
+                        Text("\(expertisesFiltered[0].name)")
+                        ForEach(0..<(expertiseUser.value), id: \.self) { index in
+                               Image(systemName: "star.fill")
+                                   .foregroundColor(Color.blue)
+                           }
+                       }
+                    }
+                }
+              }
+            }.layoutPriority(1)
           }
         }
         Spacer()
@@ -288,6 +317,14 @@ struct UserDetail: View {
           self.usersDetail = response
       }
     }
+      self.api.getExpertises() {response, error in
+        if response == nil || error != nil {
+          self.rootViewIsActive = false
+        } else {
+          self.expertises = response
+          print(self.expertises)
+        }
+      }
   }
   }
 }
