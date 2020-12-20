@@ -106,7 +106,6 @@ class Api: ObservableObject {
     let timestamp = Date().timeIntervalSince1970
     
     if self.accessToken == nil || Int(timestamp) > self.createdAt! + self.expiresIn! {
-      print("fesse")
       self.accessToken = nil
       self.createdAt = nil
       self.expiresIn = nil
@@ -131,6 +130,16 @@ class Api: ObservableObject {
            return
          }
          guard (200 ... 299) ~= response.statusCode else {                    // check for http errors
+          if (response.statusCode == 401) {
+            self.accessToken = nil
+            self.createdAt = nil
+            self.expiresIn = nil
+            self.store.set(nil, forKey: "accessToken")
+            self.store.set(nil, forKey: "createdAt")
+            self.store.set(nil, forKey: "expiresIn")
+            cb(nil, nil)
+            return
+          }
            print("statusCode should be 2xx, but is \(response.statusCode)")
            print("response = \(response)")
            return
@@ -176,6 +185,16 @@ class Api: ObservableObject {
            return
          }
          guard (200 ... 299) ~= response.statusCode else { // check for http errors
+          if (response.statusCode == 401) {
+            self.accessToken = nil
+            self.createdAt = nil
+            self.expiresIn = nil
+            self.store.set(nil, forKey: "accessToken")
+            self.store.set(nil, forKey: "createdAt")
+            self.store.set(nil, forKey: "expiresIn")
+            cb(nil, nil)
+            return
+          }
            print("statusCode should be 2xx, but is \(response.statusCode)")
            print("response = \(response)")
            return
