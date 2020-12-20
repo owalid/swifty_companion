@@ -18,14 +18,20 @@ struct UserView: View {
   @State var isFinished = false
   @State var page = 0
   @State var redirectHomeView = false
+  @State var loading = false
+
+  @State private var shouldAnimate = false
+  @State var leftOffset: CGFloat = -100
+  @State var rightOffset: CGFloat = 100
   
+  let styleLoader = StrokeStyle(lineWidth: 6, lineCap: .round)
   let api = Api.instance
   
   var body: some View {
     List {
       if usersSearch != nil {
         ForEach(usersSearch!, id: \.login) { user in
-          NavigationLink(destination: UserDetail(id: user.id)) {
+          NavigationLink(destination: UserDetail(id: user.id, rootViewIsActive: self.$rootIsActive)) {
             WebImage(url: URL(string: "\(FT_BASE_URL_PIC)/small_\(user.login).jpg"))
             .resizable()
             .placeholder {Rectangle().foregroundColor(.gray)}
@@ -34,36 +40,47 @@ struct UserView: View {
             .frame(width: 50, height: 50)
             Text("\(user.login) - \(user.id)").onAppear {
               if self.usersSearch!.last == user && !isFinished {
+                self.loading = true
                 self.page += 1
                 self.api.searchUser(login: login, page: page) {response, error in
                   if response?.count == 0 {
-                    print("wesh alors")
                     self.isFinished = true
                   }
                   self.usersSearch! += response!
+                  self.loading = false
                 }
               }
           }
           }.navigationBarTitle(user.login)
         }
-      } else {
-        // todo: loader
-       }
+        if self.loading {
+          RoundedRectangle(cornerRadius: 10)
+           .fill(Color.blue)
+           .frame(width: 80, height: 20)
+            .offset(x: shouldAnimate ? rightOffset : leftOffset)
+            .animation(Animation.easeInOut(duration: 0.8).repeatForever(autoreverses: true))
+            .onAppear {self.shouldAnimate = true}
+        }
+      }
     }.onAppear {
       self.api.searchUser(login: login, page: page) {response, error in
-        if response == nil {
-          print("isActive \(rootIsActive) ??")
+        if response == nil || error != nil {
           self.rootIsActive = false
         } else {
           self.usersSearch = response
         }
       }
     }
-//    NavigationView {
-//    NavigationLink(destination: ContentView(), isActive: $redirectHomeView) {
-//      EmptyView()
-//     }.hidden()
-//    }
+    if usersSearch == nil {
+      HStack() {
+        RoundedRectangle(cornerRadius: 10)
+        .fill(Color.blue)
+        .frame(width: 80, height: 20)
+        .offset(x: shouldAnimate ? rightOffset : leftOffset)
+        .animation(Animation.easeInOut(duration: 0.8).repeatForever(autoreverses: true))
+        .onAppear {self.shouldAnimate = true}
+      }
+     }
   }
 }
 

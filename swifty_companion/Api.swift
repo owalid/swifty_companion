@@ -14,6 +14,7 @@ class Api: ObservableObject {
   @Published var accessToken: String?
   @Published var createdAt: Int?
   @Published var expiresIn: Int?
+  
   let store = UserDefaults.standard
   
   private init() {
@@ -57,23 +58,23 @@ class Api: ObservableObject {
       let jsonElmts = try? JSONSerialization.jsonObject(with: data, options: [])
       if let dictionary = jsonElmts as? [String: Any] {
         if let access_token = dictionary["access_token"] as? String {
-          self.accessToken = access_token
-          Api.instance.accessToken = access_token
-          self.store.set(self.accessToken!, forKey: "accessToken")
+          DispatchQueue.main.async {
+            self.accessToken = access_token
+            self.store.set(self.accessToken!, forKey: "accessToken")
+          }
         }
         if let created_at = dictionary["created_at"] as? Int {
-          self.createdAt = created_at
-          Api.instance.createdAt = created_at
-
-          self.store.set(self.createdAt!, forKey: "createdAt")
+          DispatchQueue.main.async {
+            self.createdAt = created_at
+            self.store.set(self.createdAt!, forKey: "createdAt")
+          }
         }
         if let expires_in = dictionary["expires_in"] as? Int {
-          self.expiresIn = expires_in
-          Api.instance.expiresIn = expires_in
-
-          self.store.set(self.expiresIn!, forKey: "expiresIn")
+          DispatchQueue.main.async {
+            self.expiresIn = expires_in
+            self.store.set(self.expiresIn!, forKey: "expiresIn")
+          }
         }
-        print("\(self.expiresIn) - \(self.accessToken)")
       }
     }
    
@@ -81,12 +82,9 @@ class Api: ObservableObject {
   }
   
   func searchUser(login: String, page: Int, cb: @escaping ([User]?, Error?) -> Void) {
-    
     let timestamp = Date().timeIntervalSince1970
-    if (self.accessToken != nil) {
-      print("fessssse: \(timestamp)")
-    }
-    if (Int(timestamp) < self.createdAt! + self.expiresIn!) {
+    
+    if self.accessToken == nil || Int(timestamp) > self.createdAt! + self.expiresIn! {
       print("fesse")
       self.accessToken = nil
       self.createdAt = nil
@@ -129,44 +127,58 @@ class Api: ObservableObject {
   }
   
   func getUserDetail(id: Int, cb: @escaping (UserDetailStruct?, Error?) -> Void) {
-    let url = URL(string: "\(FT_BASE_API)/users/\(id)")!
-    var request = URLRequest(url: url)
+    let timestamp = Date().timeIntervalSince1970
     
-    request.httpMethod = "GET"
-    request.setValue("Bearer \(self.accessToken!)", forHTTPHeaderField: "Authorization")
-    
-    let task = URLSession.shared.dataTask(with: request) { data, response, error in
-      guard let data = data,
-         let response = response as? HTTPURLResponse,
-         error == nil else {// check for fundamental networking error
-         print("error", error ?? "Unknown error")
-          cb(nil, error)
-         return
-       }
-       guard (200 ... 299) ~= response.statusCode else { // check for http errors
-         print("statusCode should be 2xx, but is \(response.statusCode)")
-         print("response = \(response)")
-         return
-       }
-      let decoder = JSONDecoder()
-      do {
-        let decoded = try decoder.decode(UserDetailStruct.self, from: data)
-        cb(decoded, nil)
-      } catch let DecodingError.dataCorrupted(context) {
-          print(context)
-      } catch let DecodingError.keyNotFound(key, context) {
-          print("Key '\(key)' not found:", context.debugDescription)
-          print("codingPath:", context.codingPath)
-      } catch let DecodingError.valueNotFound(value, context) {
-          print("Value '\(value)' not found:", context.debugDescription)
-          print("codingPath:", context.codingPath)
-      } catch let DecodingError.typeMismatch(type, context)  {
-          print("Type '\(type)' mismatch:", context.debugDescription)
-          print("codingPath:", context.codingPath)
-      } catch {
-          print("error: ", error)
+    if self.accessToken == nil || Int(timestamp) > self.createdAt! + self.expiresIn! {
+      print("fesse")
+      self.accessToken = nil
+      self.createdAt = nil
+      self.expiresIn = nil
+      self.store.set(nil, forKey: "accessToken")
+      self.store.set(nil, forKey: "createdAt")
+      self.store.set(nil, forKey: "expiresIn")
+      cb(nil, nil)
+      return
+    } else {
+      let url = URL(string: "\(FT_BASE_API)/users/\(id)")!
+      var request = URLRequest(url: url)
+      
+      request.httpMethod = "GET"
+      request.setValue("Bearer \(self.accessToken!)", forHTTPHeaderField: "Authorization")
+      
+      let task = URLSession.shared.dataTask(with: request) { data, response, error in
+        guard let data = data,
+           let response = response as? HTTPURLResponse,
+           error == nil else {// check for fundamental networking error
+           print("error", error ?? "Unknown error")
+            cb(nil, error)
+           return
+         }
+         guard (200 ... 299) ~= response.statusCode else { // check for http errors
+           print("statusCode should be 2xx, but is \(response.statusCode)")
+           print("response = \(response)")
+           return
+         }
+        let decoder = JSONDecoder()
+        do {
+          let decoded = try decoder.decode(UserDetailStruct.self, from: data)
+          cb(decoded, nil)
+        } catch let DecodingError.dataCorrupted(context) {
+            print(context)
+        } catch let DecodingError.keyNotFound(key, context) {
+            print("Key '\(key)' not found:", context.debugDescription)
+            print("codingPath:", context.codingPath)
+        } catch let DecodingError.valueNotFound(value, context) {
+            print("Value '\(value)' not found:", context.debugDescription)
+            print("codingPath:", context.codingPath)
+        } catch let DecodingError.typeMismatch(type, context)  {
+            print("Type '\(type)' mismatch:", context.debugDescription)
+            print("codingPath:", context.codingPath)
+        } catch {
+            print("error: ", error)
+        }
       }
+      task.resume()
     }
-    task.resume()
   }
 }

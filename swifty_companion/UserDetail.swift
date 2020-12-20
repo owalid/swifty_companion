@@ -117,20 +117,26 @@ struct ProgressBar: View {
 }
 
 struct UserDetail: View {
+  var id: Int
+  @Binding var rootViewIsActive : Bool
+  
   @State var selectedPie: String = ""
   @State var selectedTab = 0
   @State var expand = false
   @State private var usersDetail: UserDetailStruct?
   @State private var selectedCursus = 0
   
-  var id: Int
   let api = Api.instance
   
   var body: some View {
     Text("")
       .onAppear {
         self.api.getUserDetail(id: id) {response, error in
-          self.usersDetail = response
+          if response == nil || error != nil {
+            self.rootViewIsActive = false
+          } else {
+            self.usersDetail = response
+        }
       }
     }
     if (usersDetail != nil) {
