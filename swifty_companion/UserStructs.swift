@@ -26,8 +26,7 @@ struct UserDetailStruct: Codable, Identifiable {
     let imageURL: String
     let staff: Bool
     let correctionPoint: Int
-    let poolMonth, poolYear: String
-    let location: String?
+    let location, poolMonth, poolYear: String?
     let wallet: Int
     let anonymizeDate: String
     let groups: [JSONAny]

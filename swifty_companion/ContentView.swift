@@ -48,7 +48,7 @@ struct ContentView: View {
               }.navigationBarTitle("Recherche")
           }
         }
-      }
+      }.edgesIgnoringSafeArea(.top)
 //    }.padding()
     }
   }

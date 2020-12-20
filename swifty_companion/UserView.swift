@@ -39,11 +39,12 @@ struct UserView: View {
             .scaledToFit()
             .frame(width: 50, height: 50)
             Text("\(user.login) - \(user.id)").onAppear {
-              if self.usersSearch!.last == user && !isFinished {
+              if self.usersSearch!.count > 8 && self.usersSearch!.last == user && !isFinished {
                 self.loading = true
                 self.page += 1
                 self.api.searchUser(login: login, page: page) {response, error in
                   if response?.count == 0 {
+                    print("finished")
                     self.isFinished = true
                   }
                   self.usersSearch! += response!
