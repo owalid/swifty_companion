@@ -15,6 +15,24 @@ struct User: Codable, Identifiable, Equatable {
   var url: String
 }
 
+// MARK: - Coalition
+struct Coalition: Codable {
+    let id: Int
+    let name, slug: String
+    let imageURL: String
+    let coverURL: String
+    let color: String
+    let score, userID: Int
+
+    enum CodingKeys: String, CodingKey {
+        case id, name, slug
+        case imageURL = "image_url"
+        case coverURL = "cover_url"
+        case color, score
+        case userID = "user_id"
+    }
+}
+
 // MARK: - Expertise
 struct Expertise: Codable {
     let id: Int

@@ -127,6 +127,7 @@ struct UserDetail: View {
     @State var expand = false
     @State private var usersDetail: UserDetailStruct?
     @State private var expertises: [Expertise]?
+    @State private var userCoalition: Coalition?
     @State private var selectedCursus = 0
   
     let api = Api.instance
@@ -139,9 +140,18 @@ struct UserDetail: View {
 
   var body: some View {
     ZStack {
+      
       if (usersDetail != nil && expertises != nil) {
+                    if userCoalition != nil {
+                      WebImage(url: URL(string: userCoalition!.coverURL))
+                      .resizable()
+                      .indicator(.activity)
+                      .scaledToFit()
+                      .edgesIgnoringSafeArea(.all)
+                    }
       VStack(spacing: 10) {
         VStack(spacing: 10) {
+          
           HStack(alignment: .top) {
             VStack() {
               Text("\(usersDetail!.campus[0].name)") // campus name
@@ -308,7 +318,7 @@ struct UserDetail: View {
       }
       .foregroundColor(Color.black.opacity(0.7))
       .padding()
-    }
+      }
     }.onAppear {
       self.api.getUserDetail(id: id) {response, error in
         if response == nil || error != nil {
@@ -322,7 +332,14 @@ struct UserDetail: View {
           self.rootViewIsActive = false
         } else {
           self.expertises = response
-          print(self.expertises)
+        }
+      }
+      self.api.getUserCoalition(id: id) {response, error in
+        if response == nil || error != nil {
+          self.rootViewIsActive = false
+        } else {
+          self.userCoalition = response
+          print(self.userCoalition)
         }
       }
   }

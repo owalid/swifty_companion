@@ -282,4 +282,57 @@ class Api: ObservableObject {
       }
     }
   }
+  func getUserCoalition(id: Int, cb: @escaping (Coalition?, Error?) -> Void) {
+    let timestamp = Date().timeIntervalSince1970
+      if self.accessToken == nil || Int(timestamp) > self.createdAt! + self.expiresIn! {
+        self.accessToken = nil
+        self.createdAt = nil
+        self.expiresIn = nil
+        self.store.set(nil, forKey: "accessToken")
+        self.store.set(nil, forKey: "createdAt")
+        self.store.set(nil, forKey: "expiresIn")
+        cb(nil, nil)
+        return
+      } else {
+        let url = URL(string: "\(FT_BASE_API)/users/\(id)/coalitions")!
+        var request = URLRequest(url: url)
+        
+        request.httpMethod = "GET"
+        request.setValue("Bearer \(self.accessToken!)", forHTTPHeaderField: "Authorization")
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+          guard let data = data,
+             let response = response as? HTTPURLResponse,
+             error == nil else {// check for fundamental networking error
+             print("error", error ?? "Unknown error")
+              cb(nil, error)
+             return
+           }
+           guard (200 ... 299) ~= response.statusCode else { // check for http errors
+             print("statusCode should be 2xx, but is \(response.statusCode)")
+             print("response = \(response)")
+             return
+           }
+          let decoder = JSONDecoder()
+          do {
+            let decoded = try decoder.decode([Coalition].self, from: data)
+            cb(decoded[0], nil)
+          } catch let DecodingError.dataCorrupted(context) {
+              print(context)
+          } catch let DecodingError.keyNotFound(key, context) {
+              print("Key '\(key)' not found:", context.debugDescription)
+              print("codingPath:", context.codingPath)
+          } catch let DecodingError.valueNotFound(value, context) {
+              print("Value '\(value)' not found:", context.debugDescription)
+              print("codingPath:", context.codingPath)
+          } catch let DecodingError.typeMismatch(type, context)  {
+              print("Type '\(type)' mismatch:", context.debugDescription)
+              print("codingPath:", context.codingPath)
+          } catch {
+              print("error: ", error)
+          }
+        }
+        task.resume()
+      }
+    }
 }
