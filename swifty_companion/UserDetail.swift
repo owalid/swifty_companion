@@ -87,17 +87,20 @@ struct PieChart: View {
 
 struct buttonTabStyle: ButtonStyle {
   var condition: Bool
+  var userCoalition: Coalition
+  
   func makeBody(configuration: Self.Configuration) -> some View {
     configuration.label
-      .foregroundColor(condition ? Color.white : Color.blue)
+      .foregroundColor(condition ? Color.white : Color(hex: userCoalition.color))
       .padding()
-      .background(condition ? Color.blue : Color.white)
+      .background(condition ? Color(hex: userCoalition.color) : Color.white)
       .cornerRadius(15.0)
   }
 }
 
 struct ProgressBar: View {
   var value: Double
+  var userCoalition: Coalition
 
   var body: some View {
     GeometryReader { geometry in
@@ -106,12 +109,12 @@ struct ProgressBar: View {
           .opacity(0.3)
           .foregroundColor(Color(UIColor.systemTeal))
         Rectangle().frame(width: min(CGFloat(Float("0.\(String(self.value).components(separatedBy: ".")[1])")!)*geometry.size.width, geometry.size.width), height: geometry.size.height)
-          .foregroundColor(Color(UIColor.systemBlue))
+          .foregroundColor(Color(hex: userCoalition.color))
           .animation(.linear)
         
         HStack(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/, spacing: /*@START_MENU_TOKEN@*/nil/*@END_MENU_TOKEN@*/, content: {
           Spacer()
-          Text("\(self.value, specifier: "%.2f")").fontWeight(.light)
+          Text("Niveau \(self.value, specifier: "%.2f")").fontWeight(.light)
           Spacer()
         })
       }.cornerRadius(45.0)
@@ -141,18 +144,16 @@ struct UserDetail: View {
   var body: some View {
     ZStack {
       
-      if (usersDetail != nil && expertises != nil) {
-                    if userCoalition != nil {
-                      WebImage(url: URL(string: userCoalition!.coverURL))
-                      .resizable()
-                      .indicator(.activity)
-                      .scaledToFit()
-                      .edgesIgnoringSafeArea(.all)
-                    }
+      if (usersDetail != nil && expertises != nil && userCoalition != nil) {
+          WebImage(url: URL(string: userCoalition!.coverURL))
+          .resizable()
+          .aspectRatio(contentMode: .fill)
+          .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+          .edgesIgnoringSafeArea(.all)
       VStack(spacing: 10) {
         VStack(spacing: 10) {
           
-          HStack(alignment: .top) {
+          HStack(alignment: .center) {
             VStack() {
               Text("\(usersDetail!.campus[0].name)") // campus name
             }.frame(maxWidth: 70)
@@ -189,12 +190,14 @@ struct UserDetail: View {
              Button(action: {
                  self.expand.toggle()
              }) {
-              Text("\(self.usersDetail!.cursusUsers[selectedCursus].cursus.name)")
+              if self.usersDetail?.cursusUsers != nil && self.usersDetail?.cursusUsers.count != 0 {
+                Text("\(self.usersDetail!.cursusUsers[selectedCursus].cursus.name)")
+              }
              }
-             if expand {
+             if expand && self.usersDetail?.cursusUsers != nil {
                Picker(selection: $selectedCursus, label: Text("")) {
                    ForEach(0 ..< usersDetail!.cursusUsers.count) {
-                     Text(self.usersDetail!.cursusUsers[$0].cursus.name)
+                    Text(self.usersDetail!.cursusUsers[$0].cursus.name).foregroundColor(Color.white)
                    }
                }
              }
@@ -203,47 +206,49 @@ struct UserDetail: View {
          }
          HStack() {
           Text("Wallet ").font(.system(size: 15)) + Text("\(usersDetail!.wallet)").font(.system(size: 16)).bold() + Text("₳").font(.system(size: 15)) // wallet
-           Text("Point d'evaluation ").font(.system(size: 15)) + Text("\(usersDetail!.correctionPoint)").font(.system(size: 16)).bold()// evaluation point
+           Text("Points d'evaluations ").font(.system(size: 15)) + Text("\(usersDetail!.correctionPoint)").font(.system(size: 16)).bold()// evaluation point
          }.padding()
-          ProgressBar(value: usersDetail!.cursusUsers[self.selectedCursus].level).frame(height: 20).padding()
+          if self.usersDetail?.cursusUsers != nil && self.usersDetail?.cursusUsers.count != 0 {
+            ProgressBar(value: usersDetail!.cursusUsers[self.selectedCursus].level, userCoalition: userCoalition!).frame(height: 20).padding()
+          }
           HStack() {
             
             Button(action: {
               self.selectedTab = 0
             }) {
               Text("Projets").font(.system(size: 13)).fontWeight(.light)
-            }.buttonStyle(buttonTabStyle(condition: self.selectedTab == 0))
+            }.buttonStyle(buttonTabStyle(condition: self.selectedTab == 0, userCoalition: userCoalition!))
             
             Button(action: {
               self.selectedTab = 1
             }) {
               Text("Achievements").font(.system(size: 13)).fontWeight(.light)
-            }.buttonStyle(buttonTabStyle(condition: self.selectedTab == 1))
+            }.buttonStyle(buttonTabStyle(condition: self.selectedTab == 1, userCoalition: userCoalition!))
             
             Button(action: {
               self.selectedTab = 2
             }) {
               Text("Graphiques").font(.system(size: 13)).fontWeight(.light)
-            }.buttonStyle(buttonTabStyle(condition: self.selectedTab == 2))
+            }.buttonStyle(buttonTabStyle(condition: self.selectedTab == 2, userCoalition: userCoalition!))
             
             Button(action: {
               self.selectedTab = 3
             }) {
               Text("Expertise").font(.system(size: 13)).fontWeight(.light)
-            }.buttonStyle(buttonTabStyle(condition: self.selectedTab == 3))
+            }.buttonStyle(buttonTabStyle(condition: self.selectedTab == 3, userCoalition: userCoalition!))
             
           }
-          if (self.selectedTab == 0) {
+          if (self.selectedTab == 0) { //Projects
             VStack(spacing: 0) {
               List {
                 ForEach(usersDetail!.projectsUsers, id: \.id) { project in
-                  if project.cursusIDS[0] == usersDetail!.cursusUsers[self.selectedCursus].cursusID && project.project.parentID == nil {
+                  if self.usersDetail?.cursusUsers != nil && self.usersDetail?.cursusUsers.count != 0 && project.cursusIDS[0] == usersDetail!.cursusUsers[self.selectedCursus].cursusID && project.project.parentID == nil {
                     if (project.status != "in_progress" && project.validated != nil) {
                       
                       HStack {
                         Text("\(project.project.name)").foregroundColor((project.validated!) ? Color.green : Color.red)
                         if project.markedAt != nil{
-                          Text(" - \(dateToString(date: project.markedAt!).timeAgoDisplay())").font(.system(size: 13)).fontWeight(.light)
+                          Text(" - \(dateToString(date: project.markedAt!).timeAgoDisplay())").font(.system(size: 13)).foregroundColor(Color.black).fontWeight(.light)
                         }
                         Spacer()
                         Text("\(String(project.finalMark!))").foregroundColor((project.validated!) ? Color.green : Color.red)
@@ -259,7 +264,7 @@ struct UserDetail: View {
                 }
               }
             }.layoutPriority(1)
-          } else if (self.selectedTab == 1) {
+          } else if (self.selectedTab == 1) { // Achievements
             VStack(spacing: 0) {
               List {
                 ForEach(usersDetail!.achievements, id: \.id) { achievement in
@@ -270,14 +275,15 @@ struct UserDetail: View {
                       .indicator(.activity)
                       .scaledToFit()
                       .frame(width: 20, height: 20)
-                    Text("\(achievement.name) - \(achievement.achievementDescription)")
+                    Text("\(achievement.name) - \(achievement.achievementDescription)").foregroundColor(Color.black)
                   }
                 }
               }
             }.layoutPriority(1)
-          } else if self.selectedTab == 2 {
+          } else if self.selectedTab == 2 { // Charts
             VStack {
              HStack(spacing: 0) {
+              if self.usersDetail?.cursusUsers != nil && self.usersDetail?.cursusUsers.count != 0 {
                  PieChart(dataModel: ChartDataModel.init(dataModel: usersDetail!.cursusUsers[self.selectedCursus].skills), onTap: {
                      dataModel in
                      if let dataModel = dataModel {
@@ -292,9 +298,10 @@ struct UserDetail: View {
                  .font(.footnote)
                  .multilineTextAlignment(.leading)
                  Spacer()
+               }
              }
            }
-          } else {
+          } else { // Expertises
             VStack(spacing: 0) {
               List {
                 ForEach(usersDetail!.expertisesUsers, id: \.id) { expertiseUser in
@@ -302,10 +309,10 @@ struct UserDetail: View {
                     let expertisesFiltered = cpy!.filter{ $0.id == expertiseUser.expertiseID}
                     if  expertisesFiltered.count > 0 && expertisesFiltered.count != 0 {
                       HStack {
-                        Text("\(expertisesFiltered[0].name)")
+                        Text("\(expertisesFiltered[0].name)").foregroundColor(Color.black)
                         ForEach(0..<(expertiseUser.value), id: \.self) { index in
                                Image(systemName: "star.fill")
-                                   .foregroundColor(Color.blue)
+                                .foregroundColor(Color(hex: userCoalition!.color))
                            }
                        }
                     }
@@ -316,7 +323,9 @@ struct UserDetail: View {
         }
         Spacer()
       }
-      .foregroundColor(Color.black.opacity(0.7))
+      .frame(maxWidth: .infinity, maxHeight: .infinity)
+      .edgesIgnoringSafeArea(.all)
+      .foregroundColor(Color.white)
       .padding()
       }
     }.onAppear {

@@ -296,6 +296,15 @@ class Api: ObservableObject {
       } else {
         let url = URL(string: "\(FT_BASE_API)/users/\(id)/coalitions")!
         var request = URLRequest(url: url)
+        let defaultCoalition = Coalition(id: -1,
+                                         name: "default",
+                                         slug: "default",
+                                         imageURL: "https://cdn.intra.42.fr/coalition/cover/48/assembly_background.jpg",
+                                         coverURL: "https://cdn.intra.42.fr/coalition/cover/48/assembly_background.jpg",
+                                         color: "#00BABC",
+                                         score: 0,
+                                         userID: -1
+                                        )
         
         request.httpMethod = "GET"
         request.setValue("Bearer \(self.accessToken!)", forHTTPHeaderField: "Authorization")
@@ -316,7 +325,11 @@ class Api: ObservableObject {
           let decoder = JSONDecoder()
           do {
             let decoded = try decoder.decode([Coalition].self, from: data)
-            cb(decoded[0], nil)
+            if decoded.count > 0 && decoded.count != 0 {
+              cb(decoded[0], nil)
+            } else {
+              cb(defaultCoalition, nil)
+            }
           } catch let DecodingError.dataCorrupted(context) {
               print(context)
           } catch let DecodingError.keyNotFound(key, context) {
