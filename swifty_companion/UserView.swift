@@ -38,7 +38,7 @@ struct UserView: View {
             .indicator(.activity)
             .scaledToFit()
             .frame(width: 50, height: 50)
-            Text("\(user.login) - \(user.id)").onAppear {
+            Text("\(user.login)").onAppear {
               if self.usersSearch!.count > 8 && self.usersSearch!.last == user && !isFinished {
                 self.loading = true
                 self.page += 1

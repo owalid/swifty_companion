@@ -182,6 +182,7 @@ struct UserDetail: View {
             }
              Text("\(usersDetail!.firstName) - \(usersDetail!.lastName)").font(.system(size: 30)).fontWeight(.semibold) // first name
              Text("\(usersDetail!.login)").font(.system(size: 20)).fontWeight(.light) // login
+              Text("\(usersDetail!.email)").font(.system(size: 15)).fontWeight(.light) // email
              Button(action: {
                  self.expand.toggle()
              }) {
@@ -277,6 +278,7 @@ struct UserDetail: View {
             }.layoutPriority(1)
           } else if self.selectedTab == 2 { // Charts
             VStack {
+            Spacer()
              HStack(spacing: 0) {
               if self.usersDetail?.cursusUsers != nil && self.usersDetail?.cursusUsers.count != 0 {
                  PieChart(dataModel: ChartDataModel.init(dataModel: usersDetail!.cursusUsers[self.selectedCursus].skills), onTap: {
@@ -295,6 +297,7 @@ struct UserDetail: View {
                  Spacer()
                }
              }
+            Spacer()
            }
           } else { // Expertises
             VStack(spacing: 0) {
