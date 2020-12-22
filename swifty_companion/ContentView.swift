@@ -61,7 +61,7 @@ struct ContentView: View {
           }
           }.padding()
       }.edgesIgnoringSafeArea(.top)
-    }.padding()
+    }
     }
   }
 }

@@ -124,7 +124,7 @@ struct ProgressBar: View {
 struct UserDetail: View {
     var id: Int
     @Binding var rootViewIsActive : Bool
-  
+
     @State var selectedPie: String = ""
     @State var selectedTab = 0
     @State var expand = false
@@ -132,9 +132,9 @@ struct UserDetail: View {
     @State private var expertises: [Expertise]?
     @State private var userCoalition: Coalition?
     @State private var selectedCursus = 0
-  
+
     let api = Api.instance
-  
+
   func dateToString(date: String) -> Date {
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "yyyy'-'MM'-'dd'T'HH':'mm':'ss.SSS'Z'"
@@ -143,16 +143,11 @@ struct UserDetail: View {
 
   var body: some View {
     ZStack {
-      
+
       if (usersDetail != nil && expertises != nil && userCoalition != nil) {
-          WebImage(url: URL(string: userCoalition!.coverURL))
-          .resizable()
-          .aspectRatio(contentMode: .fit)
-          .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
-          .edgesIgnoringSafeArea(.all)
       VStack(spacing: 10) {
         VStack(spacing: 10) {
-          
+          Spacer()
           HStack(alignment: .center) {
             VStack() {
               Text("\(usersDetail!.campus[0].name)") // campus name
@@ -171,7 +166,7 @@ struct UserDetail: View {
                 Text("\(usersDetail!.poolYear!)") // piscine
               }
             }.frame(maxWidth: 70)
-          }
+          }.padding()
           HStack(alignment: .top) {
             Spacer()
            VStack(alignment: .center) {
@@ -212,31 +207,31 @@ struct UserDetail: View {
             ProgressBar(value: usersDetail!.cursusUsers[self.selectedCursus].level, userCoalition: userCoalition!).frame(height: 20).padding()
           }
           HStack() {
-            
+
             Button(action: {
               self.selectedTab = 0
             }) {
               Text("Projets").font(.system(size: 13)).fontWeight(.light)
             }.buttonStyle(buttonTabStyle(condition: self.selectedTab == 0, userCoalition: userCoalition!))
-            
+
             Button(action: {
               self.selectedTab = 1
             }) {
               Text("Achievements").font(.system(size: 13)).fontWeight(.light)
             }.buttonStyle(buttonTabStyle(condition: self.selectedTab == 1, userCoalition: userCoalition!))
-            
+
             Button(action: {
               self.selectedTab = 2
             }) {
               Text("Graphiques").font(.system(size: 13)).fontWeight(.light)
             }.buttonStyle(buttonTabStyle(condition: self.selectedTab == 2, userCoalition: userCoalition!))
-            
+
             Button(action: {
               self.selectedTab = 3
             }) {
               Text("Expertise").font(.system(size: 13)).fontWeight(.light)
             }.buttonStyle(buttonTabStyle(condition: self.selectedTab == 3, userCoalition: userCoalition!))
-            
+
           }.padding()
           if (self.selectedTab == 0) { //Projects
             VStack(spacing: 10) {
@@ -244,7 +239,7 @@ struct UserDetail: View {
                 ForEach(usersDetail!.projectsUsers, id: \.id) { project in
                   if self.usersDetail?.cursusUsers != nil && self.usersDetail?.cursusUsers.count != 0 && project.cursusIDS[0] == usersDetail!.cursusUsers[self.selectedCursus].cursusID && project.project.parentID == nil {
                     if (project.status != "in_progress" && project.validated != nil) {
-                      
+
                       HStack {
                         Text("\(project.project.name)").foregroundColor((project.validated!) ? Color.green : Color.red)
                         if project.markedAt != nil{
@@ -347,10 +342,16 @@ struct UserDetail: View {
           self.rootViewIsActive = false
         } else {
           self.userCoalition = response
-          print(self.userCoalition)
         }
       }
   }
+    .background(
+      WebImage(url: URL(string: (userCoalition != nil) ? userCoalition!.coverURL : ""))
+        .resizable()
+  //      .aspectRatio(contentMode: .fit)
+        .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+        .edgesIgnoringSafeArea(.all)
+        )
     .frame(maxWidth: .infinity, maxHeight: .infinity)
     .edgesIgnoringSafeArea(.all)
     .foregroundColor(Color.white)
