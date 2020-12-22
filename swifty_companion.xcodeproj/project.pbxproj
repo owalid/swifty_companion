@@ -24,15 +24,9 @@
 		CF8BCD93258BEC3900655161 /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8BCD92258BEC3900655161 /* Api.swift */; };
 		CF9955D5258CD70100514162 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = CF9955D4258CD70100514162 /* SDWebImageSwiftUI */; };
 		CF9955DA258CDE1200514162 /* UserStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF9955D9258CDE1200514162 /* UserStructs.swift */; };
-		CFC17C5225619F87000B6A0F /* UtilsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC17C5125619F87000B6A0F /* UtilsAPI.swift */; };
-		CFC17C5325619F87000B6A0F /* UtilsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC17C5125619F87000B6A0F /* UtilsAPI.swift */; };
-		CFC17C5425619F87000B6A0F /* UtilsAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC17C5125619F87000B6A0F /* UtilsAPI.swift */; };
 		CFC17C562561A262000B6A0F /* FtConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC17C552561A262000B6A0F /* FtConfig.swift */; };
 		CFC17C572561A262000B6A0F /* FtConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC17C552561A262000B6A0F /* FtConfig.swift */; };
 		CFC17C582561A262000B6A0F /* FtConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC17C552561A262000B6A0F /* FtConfig.swift */; };
-		CFC17C5D2561AB6A000B6A0F /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC17C5C2561AB6A000B6A0F /* UserData.swift */; };
-		CFC17C5E2561AB6A000B6A0F /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC17C5C2561AB6A000B6A0F /* UserData.swift */; };
-		CFC17C5F2561AB6A000B6A0F /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC17C5C2561AB6A000B6A0F /* UserData.swift */; };
 		CFE06FE9258E30B500A589C2 /* SDWebImageSVGCoder in Frameworks */ = {isa = PBXBuildFile; productRef = CFE06FE8258E30B500A589C2 /* SDWebImageSVGCoder */; };
 /* End PBXBuildFile section */
 
@@ -73,9 +67,7 @@
 		CF8BCD8D258BE6AA00655161 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		CF8BCD92258BEC3900655161 /* Api.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
 		CF9955D9258CDE1200514162 /* UserStructs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStructs.swift; sourceTree = "<group>"; };
-		CFC17C5125619F87000B6A0F /* UtilsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilsAPI.swift; sourceTree = "<group>"; };
 		CFC17C552561A262000B6A0F /* FtConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FtConfig.swift; sourceTree = "<group>"; };
-		CFC17C5C2561AB6A000B6A0F /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -130,7 +122,6 @@
 			isa = PBXGroup;
 			children = (
 				CF8BCD7F258BE34F00655161 /* SceneDelegate.swift */,
-				CFC17C5125619F87000B6A0F /* UtilsAPI.swift */,
 				CFC17C552561A262000B6A0F /* FtConfig.swift */,
 				CF7A9D5B2560A10900EAD397 /* AppDelegate.swift */,
 				CF7A9D5F2560A10900EAD397 /* ContentView.swift */,
@@ -139,7 +130,6 @@
 				CF7A9D662560A10B00EAD397 /* LaunchScreen.storyboard */,
 				CF7A9D692560A10B00EAD397 /* Info.plist */,
 				CF7A9D632560A10B00EAD397 /* Preview Content */,
-				CFC17C5C2561AB6A000B6A0F /* UserData.swift */,
 				CF8BCD8D258BE6AA00655161 /* Extension.swift */,
 				CF8BCD92258BEC3900655161 /* Api.swift */,
 				CF35C95C258C21FF00264BD2 /* UserDetail.swift */,
@@ -316,13 +306,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				CF8BCD93258BEC3900655161 /* Api.swift in Sources */,
-				CFC17C5D2561AB6A000B6A0F /* UserData.swift in Sources */,
 				CF7A9D5C2560A10900EAD397 /* AppDelegate.swift in Sources */,
 				CF35C95D258C21FF00264BD2 /* UserDetail.swift in Sources */,
 				CF7A9D602560A10900EAD397 /* ContentView.swift in Sources */,
 				CF1FF58D256183C000731627 /* UserView.swift in Sources */,
 				CF9955DA258CDE1200514162 /* UserStructs.swift in Sources */,
-				CFC17C5225619F87000B6A0F /* UtilsAPI.swift in Sources */,
 				CF8BCD8E258BE6AA00655161 /* Extension.swift in Sources */,
 				CFC17C562561A262000B6A0F /* FtConfig.swift in Sources */,
 				CF8BCD80258BE34F00655161 /* SceneDelegate.swift in Sources */,
@@ -333,10 +321,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CFC17C5325619F87000B6A0F /* UtilsAPI.swift in Sources */,
 				CFC17C572561A262000B6A0F /* FtConfig.swift in Sources */,
 				CF7A9D732560A10B00EAD397 /* swifty_companionTests.swift in Sources */,
-				CFC17C5E2561AB6A000B6A0F /* UserData.swift in Sources */,
 				CF1FF58E256183C000731627 /* UserView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -345,10 +331,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CFC17C5425619F87000B6A0F /* UtilsAPI.swift in Sources */,
 				CFC17C582561A262000B6A0F /* FtConfig.swift in Sources */,
 				CF7A9D7E2560A10B00EAD397 /* swifty_companionUITests.swift in Sources */,
-				CFC17C5F2561AB6A000B6A0F /* UserData.swift in Sources */,
 				CF1FF58F256183C000731627 /* UserView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -19,7 +19,7 @@ struct UserView: View {
   @State var page = 0
   @State var redirectHomeView = false
   @State var loading = false
-
+  
   @State private var shouldAnimate = false
   @State var leftOffset: CGFloat = -100
   @State var rightOffset: CGFloat = 100
@@ -33,11 +33,11 @@ struct UserView: View {
         ForEach(usersSearch!, id: \.login) { user in
           NavigationLink(destination: UserDetail(id: user.id, rootViewIsActive: self.$rootIsActive)) {
             WebImage(url: URL(string: "\(FT_BASE_URL_PIC)/small_\(user.login).jpg"))
-            .resizable()
-            .placeholder {Rectangle().foregroundColor(.gray)}
-            .indicator(.activity)
-            .scaledToFit()
-            .frame(width: 50, height: 50)
+              .resizable()
+              .placeholder {Rectangle().foregroundColor(.gray)}
+              .indicator(.activity)
+              .scaledToFit()
+              .frame(width: 50, height: 50)
             Text("\(user.login)").onAppear {
               if self.usersSearch!.count > 8 && self.usersSearch!.last == user && !isFinished {
                 self.loading = true
@@ -51,13 +51,13 @@ struct UserView: View {
                   self.loading = false
                 }
               }
-          }
+            }
           }.navigationBarTitle(user.login)
         }
         if self.loading {
           RoundedRectangle(cornerRadius: 10)
-           .fill(Color.blue)
-           .frame(width: 80, height: 20)
+            .fill(Color.blue)
+            .frame(width: 80, height: 20)
             .offset(x: shouldAnimate ? rightOffset : leftOffset)
             .animation(Animation.easeInOut(duration: 0.8).repeatForever(autoreverses: true))
             .onAppear {self.shouldAnimate = true}
@@ -75,13 +75,13 @@ struct UserView: View {
     if usersSearch == nil {
       HStack() {
         RoundedRectangle(cornerRadius: 10)
-        .fill(Color.blue)
-        .frame(width: 80, height: 20)
-        .offset(x: shouldAnimate ? rightOffset : leftOffset)
-        .animation(Animation.easeInOut(duration: 0.8).repeatForever(autoreverses: true))
-        .onAppear {self.shouldAnimate = true}
+          .fill(Color.blue)
+          .frame(width: 80, height: 20)
+          .offset(x: shouldAnimate ? rightOffset : leftOffset)
+          .animation(Animation.easeInOut(duration: 0.8).repeatForever(autoreverses: true))
+          .onAppear {self.shouldAnimate = true}
       }
-     }
+    }
   }
 }
 
