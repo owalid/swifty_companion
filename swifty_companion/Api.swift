@@ -255,6 +255,16 @@ class Api: ObservableObject {
           guard (200 ... 299) ~= response.statusCode else { // check for http errors
             print("statusCode should be 2xx, but is \(response.statusCode)")
             print("response = \(response)")
+            if (response.statusCode == 401) {
+              self.accessToken = nil
+              self.createdAt = nil
+              self.expiresIn = nil
+              self.store.set(nil, forKey: "accessToken")
+              self.store.set(nil, forKey: "createdAt")
+              self.store.set(nil, forKey: "expiresIn")
+              cb(nil, nil)
+              return
+            }
             return
           }
           let decoder = JSONDecoder()
@@ -320,6 +330,16 @@ class Api: ObservableObject {
         guard (200 ... 299) ~= response.statusCode else { // check for http errors
           print("statusCode should be 2xx, but is \(response.statusCode)")
           print("response = \(response)")
+          if (response.statusCode == 401) {
+            self.accessToken = nil
+            self.createdAt = nil
+            self.expiresIn = nil
+            self.store.set(nil, forKey: "accessToken")
+            self.store.set(nil, forKey: "createdAt")
+            self.store.set(nil, forKey: "expiresIn")
+            cb(nil, nil)
+            return
+          }
           return
         }
         let decoder = JSONDecoder()
