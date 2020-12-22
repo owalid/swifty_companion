@@ -20,7 +20,7 @@
 		CF7A9D7E2560A10B00EAD397 /* swifty_companionUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF7A9D7D2560A10B00EAD397 /* swifty_companionUITests.swift */; };
 		CF8B57F3258AC2BA00CE4727 /* BetterSafariView in Frameworks */ = {isa = PBXBuildFile; productRef = CF8B57F2258AC2BA00CE4727 /* BetterSafariView */; };
 		CF8BCD80258BE34F00655161 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8BCD7F258BE34F00655161 /* SceneDelegate.swift */; };
-		CF8BCD8E258BE6AA00655161 /* UrlExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8BCD8D258BE6AA00655161 /* UrlExtension.swift */; };
+		CF8BCD8E258BE6AA00655161 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8BCD8D258BE6AA00655161 /* Extension.swift */; };
 		CF8BCD93258BEC3900655161 /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF8BCD92258BEC3900655161 /* Api.swift */; };
 		CF9955D5258CD70100514162 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = CF9955D4258CD70100514162 /* SDWebImageSwiftUI */; };
 		CF9955DA258CDE1200514162 /* UserStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF9955D9258CDE1200514162 /* UserStructs.swift */; };
@@ -70,7 +70,7 @@
 		CF7A9D7D2560A10B00EAD397 /* swifty_companionUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = swifty_companionUITests.swift; sourceTree = "<group>"; };
 		CF7A9D7F2560A10B00EAD397 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CF8BCD7F258BE34F00655161 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		CF8BCD8D258BE6AA00655161 /* UrlExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlExtension.swift; sourceTree = "<group>"; };
+		CF8BCD8D258BE6AA00655161 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		CF8BCD92258BEC3900655161 /* Api.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
 		CF9955D9258CDE1200514162 /* UserStructs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserStructs.swift; sourceTree = "<group>"; };
 		CFC17C5125619F87000B6A0F /* UtilsAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilsAPI.swift; sourceTree = "<group>"; };
@@ -140,7 +140,7 @@
 				CF7A9D692560A10B00EAD397 /* Info.plist */,
 				CF7A9D632560A10B00EAD397 /* Preview Content */,
 				CFC17C5C2561AB6A000B6A0F /* UserData.swift */,
-				CF8BCD8D258BE6AA00655161 /* UrlExtension.swift */,
+				CF8BCD8D258BE6AA00655161 /* Extension.swift */,
 				CF8BCD92258BEC3900655161 /* Api.swift */,
 				CF35C95C258C21FF00264BD2 /* UserDetail.swift */,
 				CF9955D9258CDE1200514162 /* UserStructs.swift */,
@@ -323,7 +323,7 @@
 				CF1FF58D256183C000731627 /* UserView.swift in Sources */,
 				CF9955DA258CDE1200514162 /* UserStructs.swift in Sources */,
 				CFC17C5225619F87000B6A0F /* UtilsAPI.swift in Sources */,
-				CF8BCD8E258BE6AA00655161 /* UrlExtension.swift in Sources */,
+				CF8BCD8E258BE6AA00655161 /* Extension.swift in Sources */,
 				CFC17C562561A262000B6A0F /* FtConfig.swift in Sources */,
 				CF8BCD80258BE34F00655161 /* SceneDelegate.swift in Sources */,
 			);
