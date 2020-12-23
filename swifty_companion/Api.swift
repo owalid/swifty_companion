@@ -17,6 +17,15 @@ class Api: ObservableObject {
   @Published var expertises: [Expertise]?
   let store = UserDefaults.standard
   
+  private func resetToken() {
+    self.accessToken = nil
+    self.createdAt = nil
+    self.expiresIn = nil
+    self.store.set(nil, forKey: "accessToken")
+    self.store.set(nil, forKey: "createdAt")
+    self.store.set(nil, forKey: "expiresIn")
+  }
+  
   private init() {
     if let accessToken = self.store.string(forKey: "accessToken") {
       print("aaaa: \(accessToken)")
@@ -106,12 +115,7 @@ class Api: ObservableObject {
     let timestamp = Date().timeIntervalSince1970
     
     if self.accessToken == nil || Int(timestamp) > self.createdAt! + self.expiresIn! {
-      self.accessToken = nil
-      self.createdAt = nil
-      self.expiresIn = nil
-      self.store.set(nil, forKey: "accessToken")
-      self.store.set(nil, forKey: "createdAt")
-      self.store.set(nil, forKey: "expiresIn")
+      self.resetToken()
       cb(nil, nil)
       return
     } else {
@@ -130,18 +134,16 @@ class Api: ObservableObject {
           return
         }
         guard (200 ... 299) ~= response.statusCode else {                    // check for http errors
+          print("statusCode should be 2xx, but is \(response.statusCode)")
+          print("response = \(response)")
           if (response.statusCode == 401) {
-            self.accessToken = nil
-            self.createdAt = nil
-            self.expiresIn = nil
-            self.store.set(nil, forKey: "accessToken")
-            self.store.set(nil, forKey: "createdAt")
-            self.store.set(nil, forKey: "expiresIn")
+            self.resetToken()
+            cb(nil, nil)
+            return
+          } else if (response.statusCode == 429) {
             cb(nil, nil)
             return
           }
-          print("statusCode should be 2xx, but is \(response.statusCode)")
-          print("response = \(response)")
           return
         }
         let decoder = JSONDecoder()
@@ -160,13 +162,7 @@ class Api: ObservableObject {
     let timestamp = Date().timeIntervalSince1970
     
     if self.accessToken == nil || Int(timestamp) > self.createdAt! + self.expiresIn! {
-      print("fesse")
-      self.accessToken = nil
-      self.createdAt = nil
-      self.expiresIn = nil
-      self.store.set(nil, forKey: "accessToken")
-      self.store.set(nil, forKey: "createdAt")
-      self.store.set(nil, forKey: "expiresIn")
+      self.resetToken()
       cb(nil, nil)
       return
     } else {
@@ -185,18 +181,16 @@ class Api: ObservableObject {
           return
         }
         guard (200 ... 299) ~= response.statusCode else { // check for http errors
+          print("statusCode should be 2xx, but is \(response.statusCode)")
+          print("response = \(response)")
           if (response.statusCode == 401) {
-            self.accessToken = nil
-            self.createdAt = nil
-            self.expiresIn = nil
-            self.store.set(nil, forKey: "accessToken")
-            self.store.set(nil, forKey: "createdAt")
-            self.store.set(nil, forKey: "expiresIn")
+            self.resetToken()
+            cb(nil, nil)
+            return
+          } else if (response.statusCode == 429) {
             cb(nil, nil)
             return
           }
-          print("statusCode should be 2xx, but is \(response.statusCode)")
-          print("response = \(response)")
           return
         }
         let decoder = JSONDecoder()
@@ -229,12 +223,7 @@ class Api: ObservableObject {
       return
     } else {
       if self.accessToken == nil || Int(timestamp) > self.createdAt! + self.expiresIn! {
-        self.accessToken = nil
-        self.createdAt = nil
-        self.expiresIn = nil
-        self.store.set(nil, forKey: "accessToken")
-        self.store.set(nil, forKey: "createdAt")
-        self.store.set(nil, forKey: "expiresIn")
+        self.resetToken()
         cb(nil, nil)
         return
       } else {
@@ -256,12 +245,10 @@ class Api: ObservableObject {
             print("statusCode should be 2xx, but is \(response.statusCode)")
             print("response = \(response)")
             if (response.statusCode == 401) {
-              self.accessToken = nil
-              self.createdAt = nil
-              self.expiresIn = nil
-              self.store.set(nil, forKey: "accessToken")
-              self.store.set(nil, forKey: "createdAt")
-              self.store.set(nil, forKey: "expiresIn")
+              self.resetToken()
+              cb(nil, nil)
+              return
+            } else if (response.statusCode == 429) {
               cb(nil, nil)
               return
             }
@@ -295,12 +282,7 @@ class Api: ObservableObject {
   func getUserCoalition(id: Int, cb: @escaping (Coalition?, Error?) -> Void) {
     let timestamp = Date().timeIntervalSince1970
     if self.accessToken == nil || Int(timestamp) > self.createdAt! + self.expiresIn! {
-      self.accessToken = nil
-      self.createdAt = nil
-      self.expiresIn = nil
-      self.store.set(nil, forKey: "accessToken")
-      self.store.set(nil, forKey: "createdAt")
-      self.store.set(nil, forKey: "expiresIn")
+      self.resetToken()
       cb(nil, nil)
       return
     } else {
@@ -331,12 +313,10 @@ class Api: ObservableObject {
           print("statusCode should be 2xx, but is \(response.statusCode)")
           print("response = \(response)")
           if (response.statusCode == 401) {
-            self.accessToken = nil
-            self.createdAt = nil
-            self.expiresIn = nil
-            self.store.set(nil, forKey: "accessToken")
-            self.store.set(nil, forKey: "createdAt")
-            self.store.set(nil, forKey: "expiresIn")
+            self.resetToken()
+            cb(nil, nil)
+            return
+          } else if (response.statusCode == 429) {
             cb(nil, nil)
             return
           }

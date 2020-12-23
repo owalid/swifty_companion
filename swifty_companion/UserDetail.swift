@@ -235,12 +235,11 @@ struct UserDetail: View {
               
             }.padding()
             if (self.selectedTab == 0) { //Projects
-              VStack(spacing: 10) {
+              VStack(spacing: 0) {
                 List {
                   ForEach(usersDetail!.projectsUsers, id: \.id) { project in
                     if self.usersDetail?.cursusUsers != nil && self.usersDetail?.cursusUsers.count != 0 && project.cursusIDS[0] == usersDetail!.cursusUsers[self.selectedCursus].cursusID && project.project.parentID == nil {
-                      if (project.status != "in_progress" && project.validated != nil) {
-                        
+                      if project.status != "in_progress" && project.validated != nil {
                         HStack {
                           Text("\(project.project.name)").foregroundColor((project.validated!) ? Color.green : Color.red)
                           if project.markedAt != nil{
@@ -277,9 +276,8 @@ struct UserDetail: View {
                 }
               }.layoutPriority(1)
             } else if self.selectedTab == 2 { // Charts
-              VStack {
-                Spacer()
-                HStack(spacing: 0) {
+              VStack(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/, spacing: 0) {
+                HStack(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/, spacing: 0) {
                   if self.usersDetail?.cursusUsers != nil && self.usersDetail?.cursusUsers.count != 0 {
                     PieChart(dataModel: ChartDataModel.init(dataModel: usersDetail!.cursusUsers[self.selectedCursus].skills), onTap: {
                       dataModel in
@@ -289,7 +287,7 @@ struct UserDetail: View {
                         self.selectedPie = ""
                       }
                     })
-                    .frame(width: 150, height: 150, alignment: .center)
+                    .frame(width: 100, height: 100, alignment: .center)
                     .padding()
                     Text(selectedPie)
                       .font(.footnote)
@@ -319,7 +317,6 @@ struct UserDetail: View {
               }.layoutPriority(1)
             }
           }
-          Spacer()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .edgesIgnoringSafeArea(.all)

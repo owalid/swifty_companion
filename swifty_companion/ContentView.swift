@@ -44,7 +44,7 @@ struct ContentView: View {
           VStack {
             HStack {
               Image(systemName: "magnifyingglass").foregroundColor(.gray)
-              TextField("Login", text: $login)
+              TextField("Login", text: $login).disableAutocorrection(true)
             }
             .padding()
             .background(Capsule().fill(Color.white))
