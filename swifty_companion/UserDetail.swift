@@ -208,7 +208,6 @@ struct UserDetail: View {
               ProgressBar(value: usersDetail!.cursusUsers[self.selectedCursus].level, userCoalition: userCoalition!).frame(height: 20).padding()
             }
             HStack() {
-              
               Button(action: {
                 self.selectedTab = 0
               }) {
