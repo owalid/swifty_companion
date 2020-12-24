@@ -14,8 +14,9 @@ struct HomeView: View {
   @State private var login: String = ""
   @State private var startingWebAuthenticationSession = false
   @State private var isConnectedScope = false
-  var urlAuthorize = "\(FT_BASE_API_OAUTH)/oauth/authorize?client_id=\(FT_CONSUMER_KEY)&client_secret=\(FT_CONSUMER_SECRET)&redirect_uri=\(FT_URL_SCHEME)&response_type=code"
   @ObservedObject var api = Api.instance
+
+  var urlAuthorize = "\(FT_BASE_API_OAUTH)/oauth/authorize?client_id=\(FT_CONSUMER_KEY)&client_secret=\(FT_CONSUMER_SECRET)&redirect_uri=\(FT_URL_SCHEME)&response_type=code"
   
   var body: some View {
     if (api.accessToken == nil || api.createdAt == nil || api.expiresIn == nil) {
@@ -66,9 +67,9 @@ struct HomeView: View {
   }
 }
 
-struct HomeView_Previews: PreviewProvider {
-  static var previews: some View {
-    HomeView()
-  }
-}
+//struct HomeView_Previews: PreviewProvider {
+//  static var previews: some View {
+//    HomeView()
+//  }
+//}
 
