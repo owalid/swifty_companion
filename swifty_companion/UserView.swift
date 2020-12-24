@@ -16,10 +16,9 @@ struct UserView: View {
   
   @State var usersSearch: [User]?
   @State var isFinished = false
-  @State var page = 0
+  @State var page = 1
   @State var redirectHomeView = false
   @State var loading = false
-  
   @State private var shouldAnimate = false
   @State var leftOffset: CGFloat = -100
   @State var rightOffset: CGFloat = 100
@@ -32,38 +31,32 @@ struct UserView: View {
       if usersSearch != nil {
         ForEach(usersSearch!, id: \.login) { user in
           NavigationLink(destination: UserDetail(id: user.id, rootViewIsActive: self.$rootIsActive)) {
-            WebImage(url: URL(string: "\(FT_BASE_URL_PIC)/small_\(user.login).jpg"))
+            WebImage(url: URL(string: "\(FT_BASE_URL_PIC)/small_\(user.login).jpg")) // get image of student
               .resizable()
-              .placeholder {Rectangle().foregroundColor(.gray)}
+              .placeholder { Rectangle().foregroundColor(.gray) }
               .indicator(.activity)
               .scaledToFit()
               .frame(width: 50, height: 50)
-            Text("\(user.login)").onAppear {
-              if self.usersSearch!.count > 8 && self.usersSearch!.last == user && !isFinished {
+            Text("\(user.login)").onAppear { // login
+              if self.usersSearch!.count > 8 && self.usersSearch!.last == user && !isFinished { // infinite scroll
                 self.loading = true
                 self.page += 1
                 self.api.searchUser(login: login, page: page) {response, error in
                   if response?.count == 0 || response == nil {
                     print("finished")
                     self.isFinished = true
+                  } else {
+                    self.usersSearch! += response!
                   }
-                  self.usersSearch! += response!
                   self.loading = false
                 }
               }
             }
           }.navigationBarTitle(user.login)
         }
-        if self.loading {
-          RoundedRectangle(cornerRadius: 10)
-            .fill(Color.blue)
-            .frame(width: 80, height: 20)
-            .offset(x: shouldAnimate ? rightOffset : leftOffset)
-            .animation(Animation.easeInOut(duration: 0.8).repeatForever(autoreverses: true))
-            .onAppear {self.shouldAnimate = true}
-        }
       }
     }.onAppear {
+      self.page = 1 // reset by 1 the page number
       self.api.searchUser(login: login, page: page) {response, error in
         if response == nil || error != nil {
           self.rootIsActive = false
@@ -72,14 +65,14 @@ struct UserView: View {
         }
       }
     }
-    if usersSearch == nil {
+    if usersSearch == nil || self.loading { // loader
       HStack() {
         RoundedRectangle(cornerRadius: 10)
-          .fill(Color.blue)
+          .fill(Color.black)
           .frame(width: 80, height: 20)
           .offset(x: shouldAnimate ? rightOffset : leftOffset)
           .animation(Animation.easeInOut(duration: 0.8).repeatForever(autoreverses: true))
-          .onAppear {self.shouldAnimate = true}
+          .onAppear {self.shouldAnimate = !self.shouldAnimate}
       }
     }
   }

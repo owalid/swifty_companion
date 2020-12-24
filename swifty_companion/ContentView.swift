@@ -44,7 +44,7 @@ struct ContentView: View {
           VStack {
             HStack {
               Image(systemName: "magnifyingglass").foregroundColor(.gray)
-              TextField("Login", text: $login).disableAutocorrection(true)
+              TextField("Login", text: $login).disableAutocorrection(true) // login search
             }
             .padding()
             .background(Capsule().fill(Color.white))
@@ -55,7 +55,7 @@ struct ContentView: View {
                 Text("Rechercher")
                   .foregroundColor(Color.white)
                   .frame(width: 110, height: 35, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                  .background(Color.blue)
+                  .background(Color.black)
                   .cornerRadius(10)
               }.navigationBarTitle("Recherche")
             }
