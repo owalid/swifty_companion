@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  HomeView.swift
 //  swifty_companion
 //
 //  Created by owalid on 15/11/2020.
@@ -9,7 +9,7 @@
 import SwiftUI
 import BetterSafariView
 
-struct ContentView: View {
+struct HomeView: View {
   @State var isActive : Bool = false
   @State private var login: String = ""
   @State private var startingWebAuthenticationSession = false
@@ -51,7 +51,7 @@ struct ContentView: View {
             .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.gray, lineWidth: 1))
             
             if login != "" {
-              NavigationLink(destination: UserView(login: self.$login, rootIsActive: self.$isActive), isActive: self.$isActive) {
+              NavigationLink(destination: UsersListView(login: self.$login, rootIsActive: self.$isActive), isActive: self.$isActive) {
                 Text("Rechercher")
                   .foregroundColor(Color.white)
                   .frame(width: 110, height: 35, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
@@ -60,15 +60,15 @@ struct ContentView: View {
               }.navigationBarTitle("Recherche")
             }
           }.padding()
-        }.edgesIgnoringSafeArea(.top)
+        }.edgesIgnoringSafeArea(.top).navigationViewStyle(StackNavigationViewStyle())
       }
     }
   }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct HomeView_Previews: PreviewProvider {
   static var previews: some View {
-    ContentView()
+    HomeView()
   }
 }
 

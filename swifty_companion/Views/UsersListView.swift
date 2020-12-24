@@ -1,5 +1,5 @@
 //
-//  UserView.swift
+//  UsersListView.swift
 //  swifty_companion
 //
 //  Created by owalid on 15/11/2020.
@@ -10,7 +10,7 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 
-struct UserView: View {
+struct UsersListView: View {
   @Binding var login: String
   @Binding var rootIsActive : Bool
   
@@ -52,7 +52,7 @@ struct UserView: View {
                 }
               }
             }
-          }.navigationBarTitle(user.login)
+          }.navigationBarTitle(user.login).navigationViewStyle(StackNavigationViewStyle())
         }
       }
     }.onAppear {
@@ -78,10 +78,10 @@ struct UserView: View {
   }
 }
 
-//struct UserView_Previews: PreviewProvider {
+//struct UsersListView_Previews: PreviewProvider {
 //
 //    static var previews: some View {
 //      @Binding var login: String
-//      UserView(login)
+//      UsersListView(login)
 //    }
 //}
