@@ -1,5 +1,5 @@
-swifty_companion/FtConfig.*
-swifty_companion/FtConfig.swift
+swifty_companion/Config/FtConfig.*
+swifty_companion/Config/FtConfig.swift
 # Xcode
 #
 # gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore

@@ -25,8 +25,6 @@
 		CF9955D5258CD70100514162 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = CF9955D4258CD70100514162 /* SDWebImageSwiftUI */; };
 		CF9955DA258CDE1200514162 /* UserStructs.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF9955D9258CDE1200514162 /* UserStructs.swift */; };
 		CFC17C562561A262000B6A0F /* FtConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC17C552561A262000B6A0F /* FtConfig.swift */; };
-		CFC17C572561A262000B6A0F /* FtConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC17C552561A262000B6A0F /* FtConfig.swift */; };
-		CFC17C582561A262000B6A0F /* FtConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC17C552561A262000B6A0F /* FtConfig.swift */; };
 		CFE06FE9258E30B500A589C2 /* SDWebImageSVGCoder in Frameworks */ = {isa = PBXBuildFile; productRef = CFE06FE8258E30B500A589C2 /* SDWebImageSVGCoder */; };
 /* End PBXBuildFile section */
 
@@ -98,6 +96,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CF6996892594F7B400BAEC6A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CF35C95C258C21FF00264BD2 /* UserDetail.swift */,
+				CF7A9D5F2560A10900EAD397 /* ContentView.swift */,
+				CF1FF58C256183C000731627 /* UserView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		CF69968D2594F81700BAEC6A /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				CF8BCD8D258BE6AA00655161 /* Extension.swift */,
+				CFC17C552561A262000B6A0F /* FtConfig.swift */,
+				CF9955D9258CDE1200514162 /* UserStructs.swift */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
+		CF6996942594F86D00BAEC6A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				CF8BCD92258BEC3900655161 /* Api.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		CF7A9D4F2560A10900EAD397 = {
 			isa = PBXGroup;
 			children = (
@@ -121,19 +147,15 @@
 		CF7A9D5A2560A10900EAD397 /* swifty_companion */ = {
 			isa = PBXGroup;
 			children = (
+				CF6996942594F86D00BAEC6A /* Model */,
+				CF69968D2594F81700BAEC6A /* Config */,
+				CF6996892594F7B400BAEC6A /* Views */,
 				CF8BCD7F258BE34F00655161 /* SceneDelegate.swift */,
-				CFC17C552561A262000B6A0F /* FtConfig.swift */,
 				CF7A9D5B2560A10900EAD397 /* AppDelegate.swift */,
-				CF7A9D5F2560A10900EAD397 /* ContentView.swift */,
-				CF1FF58C256183C000731627 /* UserView.swift */,
 				CF7A9D612560A10B00EAD397 /* Assets.xcassets */,
 				CF7A9D662560A10B00EAD397 /* LaunchScreen.storyboard */,
 				CF7A9D692560A10B00EAD397 /* Info.plist */,
 				CF7A9D632560A10B00EAD397 /* Preview Content */,
-				CF8BCD8D258BE6AA00655161 /* Extension.swift */,
-				CF8BCD92258BEC3900655161 /* Api.swift */,
-				CF35C95C258C21FF00264BD2 /* UserDetail.swift */,
-				CF9955D9258CDE1200514162 /* UserStructs.swift */,
 			);
 			path = swifty_companion;
 			sourceTree = "<group>";
@@ -321,7 +343,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CFC17C572561A262000B6A0F /* FtConfig.swift in Sources */,
 				CF7A9D732560A10B00EAD397 /* swifty_companionTests.swift in Sources */,
 				CF1FF58E256183C000731627 /* UserView.swift in Sources */,
 			);
@@ -331,7 +352,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CFC17C582561A262000B6A0F /* FtConfig.swift in Sources */,
 				CF7A9D7E2560A10B00EAD397 /* swifty_companionUITests.swift in Sources */,
 				CF1FF58F256183C000731627 /* UserView.swift in Sources */,
 			);
