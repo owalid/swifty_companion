@@ -14,7 +14,7 @@ struct HomeView: View {
   @State private var login: String = ""
   @State private var startingWebAuthenticationSession = false
   @State private var isConnectedScope = false
-  var urlAuthorize = "\(FT_URL_API)?client_id=\(FT_CONSUMER_KEY)&client_secret=\(FT_CONSUMER_SECRET)&redirect_uri=\(FT_URL_SCHEME)&response_type=code"
+  var urlAuthorize = "\(FT_BASE_API_OAUTH)/oauth/authorize?client_id=\(FT_CONSUMER_KEY)&client_secret=\(FT_CONSUMER_SECRET)&redirect_uri=\(FT_URL_SCHEME)&response_type=code"
   @ObservedObject var api = Api.instance
   
   var body: some View {

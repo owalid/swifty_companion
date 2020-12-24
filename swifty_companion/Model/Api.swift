@@ -17,7 +17,7 @@ class Api: ObservableObject {
   @Published var expertises: [Expertise]?
   let store = UserDefaults.standard
   
-  private func resetToken() {
+  private func resetToken() { // function use to reset token
     self.accessToken = nil
     self.createdAt = nil
     self.expiresIn = nil
@@ -26,7 +26,7 @@ class Api: ObservableObject {
     self.store.set(nil, forKey: "expiresIn")
   }
   
-  private init() {
+  private init() { // get store token
     if let accessToken = self.store.string(forKey: "accessToken") {
       print("aaaa: \(accessToken)")
       self.accessToken = accessToken
@@ -64,9 +64,9 @@ class Api: ObservableObject {
     }
   }
   
-  func requestToken(code: String) {
+  func requestToken(code: String) { // request token with code
     let params = "grant_type=client_credentials&client_id=\(FT_CONSUMER_KEY)&client_secret=\(FT_CONSUMER_SECRET)&code=\(code)"
-    let url = URL(string: FT_URL_API_TOKEN)!
+    let url = URL(string: "\(FT_BASE_API_OAUTH)/oauth/token")!
     
     var request = URLRequest(url: url)
     
@@ -107,11 +107,10 @@ class Api: ObservableObject {
         }
       }
     }
-    
     task.resume()
   }
   
-  func searchUser(login: String, page: Int, cb: @escaping ([User]?, Error?) -> Void) {
+  func searchUser(login: String, page: Int, cb: @escaping ([User]?, Error?) -> Void) { // search user
     let timestamp = Date().timeIntervalSince1970
     
     if self.accessToken == nil || Int(timestamp) > self.createdAt! + self.expiresIn! {

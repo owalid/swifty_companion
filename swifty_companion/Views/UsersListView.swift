@@ -18,7 +18,7 @@ struct UsersListView: View {
   @State var isFinished = false
   @State var page = 1
   @State var redirectHomeView = false
-  @State var loading = false
+  @State var loading = true
   @State private var shouldAnimate = false
   @State var leftOffset: CGFloat = -100
   @State var rightOffset: CGFloat = 100
@@ -27,8 +27,11 @@ struct UsersListView: View {
   let api = Api.instance
   
   var body: some View {
+    if (usersSearch == nil || usersSearch!.count == 0) && loading == false {
+      Text("Aucun resultat")
+    }
     List {
-      if usersSearch != nil {
+     if usersSearch != nil {
         ForEach(usersSearch!, id: \.login) { user in
           NavigationLink(destination: UserDetail(id: user.id, rootViewIsActive: self.$rootIsActive)) {
             WebImage(url: URL(string: "\(FT_BASE_URL_PIC)/small_\(user.login).jpg")) // get image of student
@@ -63,6 +66,7 @@ struct UsersListView: View {
         } else {
           self.usersSearch = response
         }
+        self.loading = false
       }
     }
     if usersSearch == nil || self.loading { // loader
